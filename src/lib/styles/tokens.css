@@ -84,7 +84,13 @@
    ============================================================ */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--topbar-h) + 16px);
+  scroll-padding-top: 16px; /* desktop: no topbar */
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: calc(var(--topbar-h) + 16px); /* mobile: account for topbar */
+  }
 }
 
 body {
