@@ -8,27 +8,8 @@
 	import Callout from '$lib/components/Callout.svelte';
 	import IOExample from '$lib/components/IOExample.svelte';
 	import DataTable from '$lib/components/DataTable.svelte';
-	import { onMount } from 'svelte';
 	import { chapters } from '$lib/data/toc';
 	import { activeSlug } from '$lib/stores/nav';
-
-	// On page load with a hash (cross-page navigation from e.g. /about),
-	// override native hash scroll with our offset-aware scroll and set active slug.
-	onMount(() => {
-		const hash = window.location.hash.slice(1);
-		if (!hash) return;
-		// Double rAF: first ensures DOM is painted, second runs after native hash scroll
-		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				const el = document.getElementById(hash);
-				if (!el) return;
-				const topbarH = document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0;
-				const y = el.getBoundingClientRect().top + window.scrollY - topbarH - 16;
-				window.scrollTo({ top: y, behavior: 'instant' });
-				activeSlug.set(hash);
-			});
-		});
-	});
 
 	// Track which content-section is in view → update sidebar TOC highlight
 	$effect(() => {
