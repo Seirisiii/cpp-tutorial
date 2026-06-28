@@ -1,0 +1,103 @@
+<script lang="ts">
+	let {
+		code,
+		lang = 'text',
+		caption = ''
+	}: { code: string; lang?: string; caption?: string } = $props();
+
+	let codeEl: HTMLElement;
+	let copied = $state(false);
+
+	$effect(() => {
+		if (codeEl && typeof window !== 'undefined') {
+			const prism = (window as any).Prism;
+			if (prism) {
+				prism.highlightElement(codeEl);
+			}
+		}
+	});
+
+	async function copy() {
+		await navigator.clipboard.writeText(code);
+		copied = true;
+		setTimeout(() => (copied = false), 1500);
+	}
+</script>
+
+<div class="code-block" data-lang={lang}>
+	<button class="copy-btn" onclick={copy} aria-label="คัดลอกโค้ด">
+		{copied ? '✓' : 'คัดลอก'}
+	</button>
+	<pre><code bind:this={codeEl} class="language-{lang}">{code}</code></pre>
+</div>
+{#if caption}
+	<p class="code-caption">{caption}</p>
+{/if}
+
+<style>
+	.code-block {
+		background: linear-gradient(145deg, #111827 0%, #0f172a 100%);
+		color: var(--color-code-fg);
+		padding: 18px 20px;
+		border-radius: 12px;
+		overflow-x: auto;
+		font-family: var(--font-mono);
+		font-size: 13.5px;
+		line-height: 1.75;
+		margin: 16px 0 4px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.04),
+			0 10px 24px rgba(2, 8, 23, 0.28);
+		position: relative;
+		border: 1px solid var(--color-code-border);
+	}
+
+	.code-block[data-lang]::before {
+		content: attr(data-lang);
+		position: absolute;
+		top: 8px;
+		right: 80px;
+		font-family: var(--font-mono);
+		font-size: 10px;
+		color: #cbd5e1;
+		background: rgba(255, 255, 255, 0.08);
+		padding: 2px 8px;
+		border-radius: 999px;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		font-weight: 600;
+	}
+
+	pre {
+		margin: 0;
+		padding: 0;
+	}
+
+	.copy-btn {
+		position: absolute;
+		top: 8px;
+		right: 12px;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: #cbd5e1;
+		font-family: var(--font-mono);
+		font-size: 10px;
+		padding: 2px 10px;
+		border-radius: 999px;
+		cursor: pointer;
+		letter-spacing: 0.04em;
+		transition: background 0.15s;
+	}
+
+	.copy-btn:hover {
+		background: rgba(255, 255, 255, 0.15);
+	}
+
+	.code-caption {
+		font-size: 13px;
+		color: var(--color-ink-muted);
+		text-align: center;
+		margin: 6px 0 16px;
+		font-style: italic;
+	}
+</style>

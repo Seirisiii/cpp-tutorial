@@ -1,0 +1,110 @@
+/* ============================================================
+   Design System — C++ Tutorial
+   แก้ไขที่นี่จุดเดียว มีผลกับทั้งเว็บ
+   ============================================================ */
+
+@theme {
+  /* --- สี base --- */
+  --color-bg:        #ffffff;
+  --color-bg-soft:   #f8f9fb;
+  --color-bg-tinted: #f1f3f7;
+
+  /* --- สีตัวอักษร --- */
+  --color-ink:       #1a1f2e;
+  --color-ink-soft:  #4a5266;
+  --color-ink-muted: #6b7280;
+
+  /* --- เส้นขอบ --- */
+  --color-line:      #e5e7eb;
+  --color-line-soft: #eef0f4;
+
+  /* --- accent (น้ำเงิน) --- */
+  --color-accent:      #2563eb;
+  --color-accent-soft: #dbeafe;
+  --color-accent-dark: #1d4ed8;
+
+  /* --- code block --- */
+  --color-code-bg:       #0f172a;
+  --color-code-fg:       #ffffff;
+  --color-code-border:   rgba(148, 163, 184, 0.22);
+  --color-code-comment:  #6a9955;
+  --color-code-keyword:  #c586c0;
+  --color-code-string:   #ce9178;
+  --color-code-number:   #b5cea8;
+  --color-code-function: #ffdb80;
+
+  /* --- callout: warning --- */
+  --color-warning-bg:     #fef3c7;
+  --color-warning-border: #f59e0b;
+  --color-warning-ink:    #78350f;
+
+  /* --- callout: tip --- */
+  --color-tip-bg:     #d1fae5;
+  --color-tip-border: #10b981;
+  --color-tip-ink:    #064e3b;
+
+  /* --- callout: definition --- */
+  --color-def-bg:     #dbeafe;
+  --color-def-border: #3b82f6;
+  --color-def-ink:    #1e3a8a;
+
+  /* --- callout: note --- */
+  --color-note-bg:     #f3f4f6;
+  --color-note-border: #6b7280;
+  --color-note-ink:    #1f2937;
+
+  /* --- callout: example / summary / practice --- */
+  --color-example-bg:     #ede9fe;
+  --color-example-border: #8b5cf6;
+  --color-example-ink:    #4c1d95;
+
+  /* --- ฟอนต์ --- */
+  --font-sans:  'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Noto Serif Thai', Georgia, serif;
+  --font-mono:  'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* --- border radius --- */
+  --radius:    8px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* --- shadows --- */
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.12);
+
+  /* --- layout --- */
+  --sidebar-w:   280px;
+  --topbar-h:    56px;
+  --content-max: 860px;
+}
+
+/* ============================================================
+   Base styles — ใช้ tokens ด้านบน
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--topbar-h) + 16px);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base, 15px);
+  line-height: 1.7;
+  color: var(--color-ink);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-dark);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
