@@ -27,8 +27,14 @@
             --accent-soft: #dbeafe;
             --accent-dark: #1d4ed8;
             --base-font-size: 16px;
-            --code-bg: #1e1e2e;
-            --code-fg: #cdd6f4;
+            --code-bg: #000000;
+            --code-fg: #ffffff;
+            --code-border: rgba(148, 163, 184, 0.22);
+            --code-muted: #6a9955;
+            --code-keyword: #c586c0;
+            --code-string: #ce9178;
+            --code-number: #b5cea8;
+            --code-function: #ffdb80;
             --warning-bg: #fef3c7;
             --warning-border: #f59e0b;
             --warning-ink: #78350f;
@@ -44,7 +50,7 @@
             --example-bg: #ede9fe;
             --example-border: #8b5cf6;
             --example-ink: #4c1d95;
-            --sidebar-w: 320px;
+            --sidebar-w: 280px;
             --topbar-h: 56px;
             --content-max: 860px;
             --radius: 8px;
@@ -69,8 +75,8 @@
         body {
             margin: 0;
             font-family: var(--font-thai);
-            font-size: var(--base-font-size);
-            line-height: 1.75;
+            font-size: 15px;
+            line-height: 1.7;
             color: var(--ink);
             background: var(--bg);
             -webkit-font-smoothing: antialiased;
@@ -170,13 +176,13 @@
 
         .sidebar-brand-title {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             color: var(--accent-dark);
             line-height: 1.3;
         }
 
         .sidebar-brand-sub {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--ink-muted);
             font-family: var(--font-mono);
             margin-top: 2px;
@@ -196,11 +202,11 @@
 
         .sidebar-search input {
             width: 100%;
-            padding: 8px 12px;
+            padding: 7px 10px;
             border: 1px solid var(--line);
             border-radius: var(--radius);
             font-family: var(--font-thai);
-            font-size: 13px;
+            font-size: 12px;
             background: var(--bg);
             color: var(--ink);
             transition: border-color 0.15s;
@@ -225,11 +231,11 @@
 
         .toc-link {
             display: block;
-            padding: 6px 12px 6px 16px;
+            padding: 5px 10px 5px 12px;
             text-decoration: none;
             color: var(--ink-soft);
-            font-size: 13.5px;
-            line-height: 1.5;
+            font-size: 12.5px;
+            line-height: 1.45;
             border-radius: var(--radius);
             transition: all 0.15s;
             border-left: 3px solid transparent;
@@ -250,7 +256,7 @@
 
         .toc-num {
             font-family: var(--font-mono);
-            font-size: 12px;
+            font-size: 11px;
             color: var(--ink-muted);
             margin-right: 4px;
         }
@@ -520,12 +526,11 @@
         }
 
         .chapter-divider {
-            padding: 80px 24px 60px;
+            padding: 48px 24px 16px;
             text-align: center;
-            background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
-            border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-            margin: 40px 0;
+            background: transparent;
+            border: none;
+            margin: 24px 0 12px;
             scroll-margin-top: 16px;
         }
 
@@ -541,7 +546,7 @@
             color: var(--accent);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .chapter-title {
@@ -555,22 +560,22 @@
 
         .content-section {
             max-width: var(--content-max);
-            margin: 24px auto;
-            padding: 32px 30px;
+            margin: 0 auto 28px;
+            padding: 0 0 24px;
             scroll-margin-top: calc(var(--topbar-h) + 16px);
-            background: var(--bg);
-            border: 1px solid var(--line-soft);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
         }
 
         .section-heading {
             font-family: var(--font-thai);
             font-weight: 700;
             color: var(--ink);
-            margin: 0 0 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--line);
+            margin: 0 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--line);
             line-height: 1.3;
             display: flex;
             align-items: baseline;
@@ -616,18 +621,18 @@
         }
 
         .code-block {
-            background: var(--code-bg);
+            background: linear-gradient(145deg, #111827 0%, #0f172a 100%);
             color: var(--code-fg);
             padding: 18px 20px;
-            border-radius: var(--radius);
+            border-radius: 12px;
             overflow-x: auto;
-            font-family: var(--font-mono);
-            font-size: 14px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+            font-size: 13.5px;
             line-height: 1.75;
             margin: 16px 0 4px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 24px rgba(2, 8, 23, 0.28);
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--code-border);
         }
 
         .code-block+.code-caption {
@@ -647,14 +652,14 @@
             position: absolute;
             top: 8px;
             right: 12px;
-            font-family: var(--font-mono);
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
             font-size: 10px;
-            color: #7c8aff;
+            color: #cbd5e1;
             background: rgba(255, 255, 255, 0.08);
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 999px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             font-weight: 600;
         }
 
@@ -669,8 +674,37 @@
         code[class*="language-"] {
             color: var(--code-fg) !important;
             background: none !important;
-            font-family: var(--font-mono) !important;
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace !important;
             text-shadow: none !important;
+        }
+
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: var(--code-muted);
+        }
+
+        .token.keyword,
+        .token.selector,
+        .token.tag {
+            color: var(--code-keyword);
+        }
+
+        .token.string,
+        .token.attr-value {
+            color: var(--code-string);
+        }
+
+        .token.number,
+        .token.boolean,
+        .token.constant {
+            color: var(--code-number);
+        }
+
+        .token.function,
+        .token.class-name {
+            color: var(--code-function);
         }
 
         .section-body code:not([class*="language-"]) {
@@ -691,34 +725,6 @@
             margin: -6px 0 16px;
             font-style: italic;
             padding: 0 12px;
-        }
-
-        .chapter-goals {
-            max-width: var(--content-max);
-            margin: 0 auto;
-            padding: 0 24px 8px;
-        }
-
-        .chapter-goals-inner {
-            background: var(--accent-soft);
-            border: 1px solid var(--accent);
-            border-radius: var(--radius-lg);
-            padding: 18px 22px;
-        }
-
-        .chapter-goals-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--accent-dark);
-            margin: 0 0 10px;
-        }
-
-        .chapter-goals ul {
-            margin: 0;
-            padding-left: 20px;
-            color: var(--ink-soft);
-            font-size: 15px;
-            line-height: 1.8;
         }
 
         .io-example {
@@ -1577,15 +1583,6 @@
                 <h2 class="chapter-title">การเริ่มต้นเขียนโปรแกรม</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เข้าใจขั้นตอนการเขียนและรันโปรแกรม C++</li>
-                    <li>ใช้ g++ คอมไพล์โปรแกรมได้</li>
-                    <li>อ่าน-เขียน input/output พื้นฐาน</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-1-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">1.1</span> <span
@@ -1809,15 +1806,6 @@ int main() {
                 <h2 class="chapter-title">โปรแกรมโครงสร้าง และภาษา C++</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>อธิบายโครงสร้างโปรแกรม C++</li>
-                    <li>เข้าใจ main และ namespace</li>
-                    <li>รู้จักฟีเจอร์ C++ ที่ใช้บ่อย</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-2-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">2.1</span> <span
@@ -2001,14 +1989,6 @@ int main() {
                 <h2 class="chapter-title">โครงสร้างของภาษา</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>ใช้ชนิดข้อมูลและตัวแปรได้ถูกต้อง</li>
-                    <li>ใช้ตัวปฏิบัติการและนิพจน์ได้</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-3-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">3.1</span> <span class="section-title">ชนิดของข้อมูล
@@ -2232,14 +2212,6 @@ int main() {
                 <h2 class="chapter-title">โครงสร้างควบคุม</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เขียน if-else, switch, loop ได้</li>
-                    <li>เลือกโครงสร้างควบคุมที่เหมาะสม</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-4-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">4.1</span> <span class="section-title">if และ
@@ -2261,10 +2233,10 @@ int main() {
     }
 
     // if-else if หลายเงื่อนไข
-    if (score &gt;= 80)      cout &lt;&lt; "Grade A" &lt;&lt; endl;
+    if (score &gt;= 80) cout &lt;&lt; "Grade A" &lt;&lt; endl;
     else if (score &gt;= 70) cout &lt;&lt; "Grade B" &lt;&lt; endl;
     else if (score &gt;= 60) cout &lt;&lt; "Grade C" &lt;&lt; endl;
-    else                  cout &lt;&lt; "Grade F" &lt;&lt; endl;
+    else cout &lt;&lt; "Grade F" &lt;&lt; endl;
 
     return 0;
 }</code></pre>
@@ -2451,14 +2423,6 @@ int main() {
                 <h2 class="chapter-title">IO Redirection</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>ใช้ IO redirection ทดสอบโปรแกรม</li>
-                    <li>เตรียม test case สำหรับการแข่งขัน</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-5-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">5.1</span> <span class="section-title">Input
@@ -2520,14 +2484,6 @@ int main() {
                 <h2 class="chapter-title">การแก้ไขและ Debug</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>แยกประเภท error ได้</li>
-                    <li>debug โปรแกรมเบื้องต้นได้</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-6-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">6.1</span> <span
@@ -2639,14 +2595,6 @@ int main() {
                 <h2 class="chapter-title">อาร์เรย์ (Array)</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>ใช้ array เก็บและประมวลผลข้อมูล</li>
-                    <li>แก้โจทย์พื้นฐานด้วย array</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-7-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">7.1</span> <span
@@ -2842,14 +2790,6 @@ int main() {
                 <h2 class="chapter-title">ฟังก์ชัน (Functions)</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เขียนฟังก์ชันและส่งค่าได้</li>
-                    <li>เข้าใจ scope ของตัวแปร</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-8-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">8.1</span> <span
@@ -3017,14 +2957,6 @@ int main() {
                 <h2 class="chapter-title">ฟังก์ชันเวียนเกิด (Recursion)</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เขียน recursion ที่มี base case</li>
-                    <li>เปรียบเทียบ recursion กับ loop</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-9-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">9.1</span> <span class="section-title">แนวคิดของ
@@ -3116,14 +3048,6 @@ int main() {
                 <h2 class="chapter-title">พอยน์เตอร์ (Pointer)</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เข้าใจ pointer และ address</li>
-                    <li>ใช้ pointer กับ array และฟังก์ชัน</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-10-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">10.1</span> <span
@@ -3243,14 +3167,6 @@ int main() {
                 <h2 class="chapter-title">class และ struct</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>สร้าง struct/class ได้</li>
-                    <li>ใช้ constructor และ method</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-11-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">11.1</span> <span class="section-title">struct ใน
@@ -3371,14 +3287,6 @@ int main() {
                 <h2 class="chapter-title">การเรียงและค้นหาข้อมูล</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>เรียงและค้นหาข้อมูลได้</li>
-                    <li>รู้ complexity ของแต่ละวิธี</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-12-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">12.1</span> <span class="section-title">การเรียงข้อมูล
@@ -3530,14 +3438,6 @@ int main() {
                 <h2 class="chapter-title">สตริง (String)</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>ใช้ std::string ได้</li>
-                    <li>ประมวลผลข้อความพื้นฐาน</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-13-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">13.1</span> <span class="section-title">C-style string
@@ -3663,14 +3563,6 @@ int main() {
                 <h2 class="chapter-title">Linked List</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>implement linked list ได้</li>
-                    <li>แทรก/ลบ node ได้</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-14-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">14.1</span> <span class="section-title">แนวคิดของ
@@ -4085,14 +3977,6 @@ void removeValue(Node*& head, int value) {
                 <h2 class="chapter-title">Stack</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>implement stack ได้</li>
-                    <li>ใช้ std::stack ใน STL</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-15-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">15.1</span> <span class="section-title">แนวคิดของ
@@ -4232,14 +4116,6 @@ int main() {
                 <h2 class="chapter-title">Queue</h2>
             </div>
         </section>
-        <div class="chapter-goals">
-            <div class="chapter-goals-inner">
-                <p class="chapter-goals-title">เป้าหมายการเรียนรู้</p>
-                <ul>
-                    <li>implement queue ได้</li>
-                    <li>ใช้ std::queue ใน STL</li>
-                </ul>
-            </div>
         </div>
         <section class="content-section" id="sec-16-1" data-level="2">
             <h2 class="section-heading"><span class="section-num">16.1</span> <span class="section-title">แนวคิดของ
