@@ -23,9 +23,4 @@
 	}
 
 	.footer p { margin: 4px 0; }
-
-	.footer-meta {
-		font-size: 12px;
-		font-style: italic;
-	}
 </style>
