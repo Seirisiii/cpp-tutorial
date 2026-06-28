@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	let { onMenuClick }: { onMenuClick: () => void } = $props();
 
 	function scrollToTop() {
@@ -10,7 +11,7 @@
 	<button class="topbar-menu" onclick={onMenuClick} aria-label="เมนู">
 		<span></span><span></span><span></span>
 	</button>
-	<a href="/" class="topbar-title">การเขียนโปรแกรม C++</a>
+	<a href="{base}/" class="topbar-title">การเขียนโปรแกรม C++</a>
 	<button class="topbar-totop" onclick={scrollToTop} aria-label="กลับขึ้นบน">↑</button>
 </header>
 

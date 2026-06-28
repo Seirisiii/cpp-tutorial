@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { chapters } from '$lib/data/toc';
 </script>
 
@@ -10,7 +11,7 @@
 
 		<div class="cover-actions">
 			<a href="#chapter-1" class="btn btn-primary">เริ่มอ่าน</a>
-			<a href="/about" class="btn btn-secondary">เกี่ยวกับเรา</a>
+			<a href="{base}/about" class="btn btn-secondary">เกี่ยวกับเรา</a>
 		</div>
 
 		<div class="cover-toc-preview">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { chapters } from '$lib/data/toc';
 	import { activeSlug, fontSize } from '$lib/stores/nav';
 
@@ -50,7 +51,7 @@
 
 <nav class="sidebar" class:open aria-label="สารบัญ">
 	<div class="sidebar-header">
-		<a href="/" class="sidebar-brand">
+		<a href="{base}/" class="sidebar-brand">
 			<span class="sidebar-brand-title">การเขียนโปรแกรม C++</span>
 			<span class="sidebar-brand-sub">C++ Tutorial</span>
 		</a>
@@ -106,7 +107,7 @@
 						{#each chapter.sections as section}
 							<li class="toc-item">
 								<a
-									href="/#{section.slug}"
+									href="{base}/#{section.slug}"
 									class="toc-link"
 									class:active={$activeSlug === section.slug}
 									onclick={onclose}
@@ -123,7 +124,7 @@
 	{/if}
 
 	<div class="sidebar-footer">
-		<a href="/about" class="sidebar-about-link" onclick={onclose}>เกี่ยวกับเรา</a>
+		<a href="{base}/about" class="sidebar-about-link" onclick={onclose}>เกี่ยวกับเรา</a>
 	</div>
 </nav>
 

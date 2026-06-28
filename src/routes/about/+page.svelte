@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import ProfileCard from '$lib/components/ProfileCard.svelte';
 
 	const members = [
@@ -73,7 +74,7 @@
 	</section>
 
 	<div class="back-link">
-		<a href="/">← กลับหน้าหลัก</a>
+		<a href="{base}/">← กลับหน้าหลัก</a>
 	</div>
 </div>
 
