@@ -13,22 +13,29 @@
 
 	// Track which content-section is in view → update sidebar TOC highlight
 	$effect(() => {
-		const sections = [...document.querySelectorAll<HTMLElement>('section.content-section[id]')];
-		if (!sections.length) return;
+		const sections = document.querySelectorAll('section.content-section[id]');
+		const visible = new Set<string>();
 
-		function updateActive() {
-			const topbarH = document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0;
-			const threshold = topbarH + 24;
-			let active = sections[0].id;
-			for (const s of sections) {
-				if (s.getBoundingClientRect().top <= threshold) active = s.id;
-			}
-			activeSlug.set(active);
-		}
+		const io = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) visible.add(entry.target.id);
+					else visible.delete(entry.target.id);
+				}
+				// Pick the topmost visible section (in document order)
+				const all = document.querySelectorAll('section.content-section[id]');
+				for (const s of all) {
+					if (visible.has(s.id)) {
+						activeSlug.set(s.id);
+						break;
+					}
+				}
+			},
+			{ rootMargin: '-60px 0px -70% 0px' }
+		);
 
-		window.addEventListener('scroll', updateActive, { passive: true });
-		updateActive();
-		return () => window.removeEventListener('scroll', updateActive);
+		sections.forEach((s) => io.observe(s));
+		return () => io.disconnect();
 	});
 </script>
 

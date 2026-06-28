@@ -110,19 +110,7 @@
 									href="{base}/#{section.slug}"
 									class="toc-link"
 									class:active={$activeSlug === section.slug}
-									onclick={(e) => {
-										e.preventDefault();
-										const el = document.getElementById(section.slug);
-										if (el) {
-											const topbarH = (document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0);
-											const gap = 16;
-											const y = el.getBoundingClientRect().top + window.scrollY - topbarH - gap;
-											window.scrollTo({ top: y });
-											history.pushState(null, '', `${base}/#${section.slug}`);
-										}
-										activeSlug.set(section.slug);
-										onclose?.();
-									}}
+									onclick={onclose}
 								>
 									<span class="toc-num">{section.num}</span>
 									{section.title}
@@ -342,6 +330,8 @@
 		line-height: 1.45;
 		border-radius: var(--radius);
 		transition: all 0.15s;
+		border-left: 3px solid transparent;
+		margin-left: -3px;
 	}
 
 	.toc-link:hover {
@@ -351,6 +341,7 @@
 
 	/* Active section highlight */
 	.toc-link.active {
+		border-left-color: var(--color-accent);
 		color: var(--color-accent-dark);
 		background: var(--color-accent-soft);
 		font-weight: 600;

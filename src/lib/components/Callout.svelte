@@ -39,7 +39,7 @@
 		line-height: 1.7;
 		display: flex;
 		gap: 14px;
-		align-items: baseline;
+		align-items: flex-start;
 	}
 
 	.callout-label {
@@ -51,6 +51,7 @@
 		background: rgba(255, 255, 255, 0.6);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
+		margin-top: 1px;
 	}
 
 	.callout-body { flex: 1; }
