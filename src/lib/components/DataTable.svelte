@@ -7,18 +7,33 @@
 	}: { caption?: string; children: Snippet } = $props();
 </script>
 
-<div class="table-wrap">
-	<table>
-		{@render children()}
-	</table>
+<div class="table-outer">
+	{#if caption}
+		<p class="table-caption">{caption}</p>
+	{/if}
+	<div class="table-wrap">
+		<table>
+			{@render children()}
+		</table>
+	</div>
 </div>
-{#if caption}
-	<p class="table-caption">{caption}</p>
-{/if}
 
 <style>
-	.table-wrap {
+	.table-outer {
 		margin: 18px 0;
+	}
+
+	.table-caption {
+		display: block;
+		width: 100%;
+		font-size: 13px;
+		color: var(--color-ink-muted);
+		text-align: center;
+		margin: 0 0 6px;
+		font-style: italic;
+	}
+
+	.table-wrap {
 		overflow-x: auto;
 		border-radius: var(--radius);
 		border: 1px solid var(--color-line);
@@ -67,13 +82,5 @@
 		border-radius: 3px;
 		font-family: var(--font-mono);
 		font-size: 12.5px;
-	}
-
-	.table-caption {
-		font-size: 13px;
-		color: var(--color-ink-muted);
-		text-align: center;
-		margin: -6px 0 16px;
-		font-style: italic;
 	}
 </style>
