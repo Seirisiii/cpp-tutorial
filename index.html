@@ -1,0 +1,4500 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>C++ Tutorial</title>
+    <meta name="description"
+        content="C++ สำหรับใช้อบรมค่ายโอลิมปิกวิชาการ สอวน.คอมพิวเตอร์​ ค่าย 1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Thai:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-soft: #f8f9fb;
+            --bg-tinted: #f1f3f7;
+            --ink: #1a1f2e;
+            --ink-soft: #4a5266;
+            --ink-muted: #6b7280;
+            --line: #e5e7eb;
+            --line-soft: #eef0f4;
+            --accent: #2563eb;
+            --accent-soft: #dbeafe;
+            --accent-dark: #1d4ed8;
+            --base-font-size: 16px;
+            --code-bg: #000000;
+            --code-fg: #ffffff;
+            --code-border: rgba(148, 163, 184, 0.22);
+            --code-muted: #6a9955;
+            --code-keyword: #c586c0;
+            --code-string: #ce9178;
+            --code-number: #b5cea8;
+            --code-function: #ffdb80;
+            --warning-bg: #fef3c7;
+            --warning-border: #f59e0b;
+            --warning-ink: #78350f;
+            --tip-bg: #d1fae5;
+            --tip-border: #10b981;
+            --tip-ink: #064e3b;
+            --def-bg: #dbeafe;
+            --def-border: #3b82f6;
+            --def-ink: #1e3a8a;
+            --note-bg: #f3f4f6;
+            --note-border: #6b7280;
+            --note-ink: #1f2937;
+            --example-bg: #ede9fe;
+            --example-border: #8b5cf6;
+            --example-ink: #4c1d95;
+            --sidebar-w: 280px;
+            --topbar-h: 56px;
+            --content-max: 860px;
+            --radius: 8px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, .06);
+            --shadow-md: 0 4px 12px rgba(15, 23, 42, .08);
+            --shadow-lg: 0 10px 30px rgba(15, 23, 42, .12);
+            --font-thai: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+            --font-thai-serif: 'Noto Serif Thai', Georgia, serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--topbar-h) + 16px);
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-thai);
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--ink);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+            z-index: 100;
+            transition: width 0.1s linear;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            height: var(--topbar-h);
+            background: rgba(255, 255, 255, .92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+            display: none;
+            align-items: center;
+            padding: 0 16px;
+            gap: 12px;
+        }
+
+        .topbar-menu,
+        .topbar-totop {
+            background: none;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--ink);
+            font-size: 18px;
+        }
+
+        .topbar-menu span {
+            width: 16px;
+            height: 2px;
+            background: var(--ink);
+            border-radius: 1px;
+        }
+
+        .topbar-title {
+            flex: 1;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--ink);
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-w);
+            height: 100vh;
+            background: var(--bg-soft);
+            border-right: 1px solid var(--line);
+            overflow-y: auto;
+            z-index: 60;
+            transition: transform 0.25s ease;
+        }
+
+        .sidebar-header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--line);
+            padding: 16px 20px;
+            z-index: 2;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: var(--ink);
+        }
+
+        .sidebar-brand-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--accent-dark);
+            line-height: 1.3;
+        }
+
+        .sidebar-brand-sub {
+            font-size: 11px;
+            color: var(--ink-muted);
+            font-family: var(--font-mono);
+            margin-top: 2px;
+        }
+
+        .sidebar-toggle {
+            display: none;
+        }
+
+        .sidebar-search {
+            padding: 12px 16px 8px;
+            position: sticky;
+            top: 70px;
+            background: var(--bg-soft);
+            z-index: 1;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            font-family: var(--font-thai);
+            font-size: 12px;
+            background: var(--bg);
+            color: var(--ink);
+            transition: border-color 0.15s;
+        }
+
+        .sidebar-search input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0 8px 24px;
+            margin: 0;
+        }
+
+        .toc-item,
+        .toc-chapter {
+            margin: 0;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 5px 10px 5px 12px;
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 12.5px;
+            line-height: 1.45;
+            border-radius: var(--radius);
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+            margin-left: -3px;
+        }
+
+        .toc-link:hover {
+            background: var(--bg-tinted);
+            color: var(--ink);
+        }
+
+        .toc-item.active>.toc-link {
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            font-weight: 600;
+            border-left-color: var(--accent);
+        }
+
+        .toc-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--ink-muted);
+            margin-right: 4px;
+        }
+
+        .toc-level-1 .toc-link {
+            padding-left: 16px;
+            font-weight: 500;
+        }
+
+        .toc-chapter-toggle {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-family: var(--font-thai);
+            font-size: 14px;
+            color: var(--ink);
+            text-align: left;
+            border-radius: var(--radius);
+            transition: background 0.15s;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .toc-chapter-toggle:hover {
+            background: var(--bg-tinted);
+        }
+
+        .toc-chapter-num {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .toc-chapter-title {
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .toc-chapter-arrow {
+            color: var(--ink-muted);
+            transition: transform 0.2s;
+            font-size: 12px;
+        }
+
+        .toc-chapter-toggle[aria-expanded="true"] .toc-chapter-arrow {
+            transform: rotate(180deg);
+        }
+
+        .toc-sublist {
+            list-style: none;
+            padding: 0 0 4px;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .toc-sublist.open {
+            max-height: 5000px;
+        }
+
+        .toc-item.hidden-by-search,
+        .toc-chapter.hidden-by-search {
+            display: none;
+        }
+
+        .main {
+            margin-left: var(--sidebar-w);
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+            background:
+                radial-gradient(circle at 20% 20%, var(--accent-soft) 0, transparent 50%),
+                radial-gradient(circle at 80% 80%, #f0f9ff 0, transparent 50%),
+                var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(to right, var(--line-soft) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--line-soft) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .cover-inner {
+            max-width: 720px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            color: var(--ink-soft);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cover-title {
+            font-family: var(--font-thai-serif);
+            font-size: clamp(38px, 6vw, 64px);
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 0 8px;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .cover-subtitle {
+            font-family: var(--font-mono);
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--accent);
+            margin: 0 0 32px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .cover-meta {
+            font-size: 15px;
+            color: var(--ink-soft);
+            margin: 0 0 4px;
+        }
+
+        .cover-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 28px 0 12px;
+            flex-wrap: wrap;
+        }
+
+        .font-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 28px;
+            flex-wrap: wrap;
+        }
+
+        .font-control {
+            border: 1px solid var(--line);
+            background: var(--bg);
+            color: var(--ink);
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 44px;
+            transition: background 0.15s, transform 0.15s, border-color 0.15s;
+        }
+
+        .font-control:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-family: var(--font-thai);
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--ink);
+            border-color: var(--line);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent-dark);
+        }
+
+        .cover-toc-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .cover-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            color: var(--ink-soft);
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.15s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cover-chip:hover {
+            border-color: var(--accent);
+            color: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .cover-chip .chip-num {
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .chapter-divider {
+            padding: 48px 24px 16px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            margin: 24px 0 12px;
+            scroll-margin-top: 16px;
+        }
+
+        .chapter-divider-inner {
+            max-width: var(--content-max);
+            margin: 0 auto;
+        }
+
+        .chapter-num {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .chapter-title {
+            font-family: var(--font-thai-serif);
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .content-section {
+            max-width: var(--content-max);
+            margin: 0 auto 28px;
+            padding: 0 0 24px;
+            scroll-margin-top: calc(var(--topbar-h) + 16px);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .section-heading {
+            font-family: var(--font-thai);
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--line);
+            line-height: 1.3;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 22px;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 0.85em;
+            font-weight: 700;
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        .section-body {
+            color: var(--ink);
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+        .section-body p {
+            margin: 0 0 14px;
+        }
+
+        .section-empty {
+            color: var(--ink-muted);
+            font-style: italic;
+            padding: 8px 0;
+        }
+
+        .section-body h3.sub-heading {
+            font-size: 17px;
+            color: var(--ink);
+            margin: 24px 0 10px;
+            font-weight: 600;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .code-block {
+            background: linear-gradient(145deg, #111827 0%, #0f172a 100%);
+            color: var(--code-fg);
+            padding: 18px 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+            font-size: 13.5px;
+            line-height: 1.75;
+            margin: 16px 0 4px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 10px 24px rgba(2, 8, 23, 0.28);
+            position: relative;
+            border: 1px solid var(--code-border);
+        }
+
+        .code-block+.code-caption {
+            margin-top: 6px;
+        }
+
+        .code-block code {
+            font-family: inherit;
+            background: none;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+        }
+
+        .code-block[data-lang]::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+            font-size: 10px;
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        pre[class*="language-"] {
+            margin: 0 !important;
+            background: transparent !important;
+            padding: 0 !important;
+            font-size: inherit !important;
+            line-height: inherit !important;
+        }
+
+        code[class*="language-"] {
+            color: var(--code-fg) !important;
+            background: none !important;
+            font-family: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace !important;
+            text-shadow: none !important;
+        }
+
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: var(--code-muted);
+        }
+
+        .token.keyword,
+        .token.selector,
+        .token.tag {
+            color: var(--code-keyword);
+        }
+
+        .token.string,
+        .token.attr-value {
+            color: var(--code-string);
+        }
+
+        .token.number,
+        .token.boolean,
+        .token.constant {
+            color: var(--code-number);
+        }
+
+        .token.function,
+        .token.class-name {
+            color: var(--code-function);
+        }
+
+        .section-body code:not([class*="language-"]) {
+            background: var(--bg-tinted);
+            color: var(--accent-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.92em;
+            font-weight: 500;
+        }
+
+        .code-caption,
+        .table-caption {
+            font-size: 13px;
+            color: var(--ink-muted);
+            text-align: center;
+            margin: -6px 0 16px;
+            font-style: italic;
+            padding: 0 12px;
+        }
+
+        .io-example {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        @media (max-width: 640px) {
+            .io-example {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .io-box {
+            background: var(--bg-soft);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .io-box-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 8px 14px;
+            background: var(--bg-tinted);
+            border-bottom: 1px solid var(--line);
+            color: var(--ink-muted);
+        }
+
+        .io-box pre {
+            margin: 0;
+            padding: 12px 14px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--ink);
+            white-space: pre-wrap;
+        }
+
+        .callout.practice {
+            background: var(--example-bg);
+            border-left-color: var(--example-border);
+            color: var(--example-ink);
+        }
+
+        .callout.practice .callout-label {
+            color: var(--example-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .callout {
+            margin: 16px 0;
+            padding: 14px 18px;
+            border-radius: var(--radius);
+            border-left: 4px solid;
+            font-size: 14.5px;
+            line-height: 1.7;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .callout-label {
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 1px;
+        }
+
+        .callout-body {
+            flex: 1;
+        }
+
+        .callout-body p {
+            margin: 0;
+        }
+
+        .callout-body code:not([class*="language-"]) {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .callout.definition {
+            background: var(--def-bg);
+            border-left-color: var(--def-border);
+            color: var(--def-ink);
+        }
+
+        .callout.definition .callout-label {
+            color: var(--def-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .callout.warning {
+            background: var(--warning-bg);
+            border-left-color: var(--warning-border);
+            color: var(--warning-ink);
+        }
+
+        .callout.warning .callout-label {
+            color: var(--warning-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .callout.tip {
+            background: var(--tip-bg);
+            border-left-color: var(--tip-border);
+            color: var(--tip-ink);
+        }
+
+        .callout.tip .callout-label {
+            color: var(--tip-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .callout.note {
+            background: var(--note-bg);
+            border-left-color: var(--note-border);
+            color: var(--note-ink);
+        }
+
+        .callout.note .callout-label {
+            color: var(--note-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .callout.example,
+        .callout.summary {
+            background: var(--example-bg);
+            border-left-color: var(--example-border);
+            color: var(--example-ink);
+        }
+
+        .callout.example .callout-label,
+        .callout.summary .callout-label {
+            color: var(--example-ink);
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .math-display {
+            margin: 16px auto;
+            padding: 14px 20px;
+            text-align: center;
+            background: var(--bg-soft);
+            border-radius: var(--radius);
+            font-family: 'Noto Serif Thai', 'Cambria Math', serif;
+            font-size: 15.5px;
+            color: var(--ink);
+            overflow-x: auto;
+            border: 1px solid var(--line-soft);
+        }
+
+        .table-wrap {
+            margin: 18px 0;
+            overflow-x: auto;
+            border-radius: var(--radius);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            background: var(--bg);
+        }
+
+        .table-wrap th,
+        .table-wrap td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--line-soft);
+        }
+
+        .table-wrap th {
+            background: var(--bg-tinted);
+            font-weight: 600;
+            color: var(--ink);
+            border-bottom: 2px solid var(--line);
+            font-size: 13.5px;
+        }
+
+        .table-wrap td {
+            color: var(--ink-soft);
+        }
+
+        .table-wrap tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-wrap tr:hover td {
+            background: var(--bg-soft);
+        }
+
+        .table-wrap td code,
+        .table-wrap th code {
+            background: var(--bg-tinted);
+            color: var(--accent-dark);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+        }
+
+        .section-body ul,
+        .section-body ol {
+            margin: 8px 0 16px;
+            padding-left: 24px;
+        }
+
+        .section-body li {
+            margin-bottom: 6px;
+            line-height: 1.75;
+        }
+
+        .section-body li code:not([class*="language-"]) {
+            background: var(--bg-tinted);
+            color: var(--accent-dark);
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.92em;
+        }
+
+        .footer {
+            border-top: 1px solid var(--line);
+            padding: 32px 24px;
+            text-align: center;
+            color: var(--ink-muted);
+            font-size: 13px;
+            background: var(--bg-soft);
+            margin-top: 60px;
+        }
+
+        .footer p {
+            margin: 4px 0;
+        }
+
+        .footer-meta {
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 55;
+            backdrop-filter: blur(2px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-w: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .topbar {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+                padding-top: 0;
+            }
+
+            .cover {
+                padding-top: calc(var(--topbar-h) + 40px);
+            }
+
+            .content-section {
+                padding: 24px 16px;
+            }
+
+            .chapter-divider {
+                padding: 60px 16px 40px;
+                margin: 24px 0;
+            }
+
+            .code-block {
+                font-size: 12.5px;
+                padding: 14px;
+            }
+
+            .callout {
+                flex-direction: column;
+                gap: 8px;
+                padding: 12px 14px;
+            }
+
+            .callout-label {
+                align-self: flex-start;
+            }
+
+            .cover-toc-preview {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cover-chip {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 36px;
+            }
+
+            .cover-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                text-align: center;
+            }
+        }
+
+        @media print {
+
+            .sidebar,
+            .topbar,
+            .progress-bar,
+            .sidebar-overlay {
+                display: none !important;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content-section,
+            .chapter-divider {
+                page-break-inside: avoid;
+            }
+
+            .code-block {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--line);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-muted);
+        }
+
+        ::selection {
+            background: var(--accent-soft);
+            color: var(--accent-dark);
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <header class="topbar">
+        <button class="topbar-menu" id="topbarMenu" aria-label="เมนู">
+            <span></span><span></span><span></span>
+        </button>
+        <a href="#cover" class="topbar-title">การเขียนโปรแกรม C++</a>
+        <button class="topbar-totop" id="topbarTop" aria-label="กลับขึ้นบน">↑</button>
+    </header>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar" id="sidebar" aria-label="สารบัญ">
+        <div class="sidebar-header">
+            <a href="#cover" class="sidebar-brand">
+                <span class="sidebar-brand-title">การเขียนโปรแกรม C++</span>
+                <span class="sidebar-brand-sub">C++ Tutorial</span>
+            </a>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="เปิด/ปิดสารบัญ">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="sidebar-search">
+            <input type="search" id="tocSearch" placeholder="ค้นหาหัวข้อ..." aria-label="ค้นหาในสารบัญ">
+        </div>
+        <ul class="toc-list" id="tocList">
+            <li class="toc-chapter" data-chapter="1">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">1</span>
+                    <span class="toc-chapter-title">การเริ่มต้นเขียนโปรแกรม</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="1">
+                    <li class="toc-item toc-level-1" data-slug="sec-1-1">
+                        <a href="#sec-1-1" class="toc-link"><span class="toc-num">1.1</span> การเริ่มต้นเขียนโปรแกรม</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-1-2">
+                        <a href="#sec-1-2" class="toc-link"><span class="toc-num">1.2</span> การใช้งานคอมไพล์เลอร์
+                            g++</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-1-3">
+                        <a href="#sec-1-3" class="toc-link"><span class="toc-num">1.3</span> เครื่องมือในการเขียนโปรแกรม
+                            (IDE)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-1-4">
+                        <a href="#sec-1-4" class="toc-link"><span class="toc-num">1.4</span> การลงรหัส (Coding)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-1-5">
+                        <a href="#sec-1-5" class="toc-link"><span class="toc-num">1.5</span>
+                            การรับข้อมูลและแสดงผลเบื้องต้น</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="2">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">2</span>
+                    <span class="toc-chapter-title">โปรแกรมโครงสร้าง และภาษา C++</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="2">
+                    <li class="toc-item toc-level-1" data-slug="sec-2-1">
+                        <a href="#sec-2-1" class="toc-link"><span class="toc-num">2.1</span>
+                            โปรแกรมคอมพิวเตอร์และภาษาคอมพิวเตอร์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-2-2">
+                        <a href="#sec-2-2" class="toc-link"><span class="toc-num">2.2</span> ภาษา C++
+                            ในการเขียนโปรแกรม</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-2-3">
+                        <a href="#sec-2-3" class="toc-link"><span class="toc-num">2.3</span> โครงสร้างของโปรแกรม C++</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-2-4">
+                        <a href="#sec-2-4" class="toc-link"><span class="toc-num">2.4</span> ฟังก์ชัน main และ
+                            namespace</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-2-5">
+                        <a href="#sec-2-5" class="toc-link"><span class="toc-num">2.5</span> มาตรฐาน C++ ที่ควรรู้</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="3">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">3</span>
+                    <span class="toc-chapter-title">โครงสร้างของภาษา</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="3">
+                    <li class="toc-item toc-level-1" data-slug="sec-3-1">
+                        <a href="#sec-3-1" class="toc-link"><span class="toc-num">3.1</span> ชนิดของข้อมูล (Data
+                            Types)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-3-2">
+                        <a href="#sec-3-2" class="toc-link"><span class="toc-num">3.2</span> ตัวแปร (Variables)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-3-3">
+                        <a href="#sec-3-3" class="toc-link"><span class="toc-num">3.3</span> ค่าคงที่ (Constants)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-3-4">
+                        <a href="#sec-3-4" class="toc-link"><span class="toc-num">3.4</span> ตัวปฏิบัติการ
+                            (Operators)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-3-5">
+                        <a href="#sec-3-5" class="toc-link"><span class="toc-num">3.5</span> นิพจน์และข้อความสั่ง
+                            (Expressions &amp; Statements)</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="4">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">4</span>
+                    <span class="toc-chapter-title">โครงสร้างควบคุม</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="4">
+                    <li class="toc-item toc-level-1" data-slug="sec-4-1">
+                        <a href="#sec-4-1" class="toc-link"><span class="toc-num">4.1</span> if และ if-else</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-4-2">
+                        <a href="#sec-4-2" class="toc-link"><span class="toc-num">4.2</span> switch</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-4-3">
+                        <a href="#sec-4-3" class="toc-link"><span class="toc-num">4.3</span> while loop</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-4-4">
+                        <a href="#sec-4-4" class="toc-link"><span class="toc-num">4.4</span> for loop</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-4-5">
+                        <a href="#sec-4-5" class="toc-link"><span class="toc-num">4.5</span> do-while loop</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-4-6">
+                        <a href="#sec-4-6" class="toc-link"><span class="toc-num">4.6</span> break, continue และ nested
+                            loop</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="5">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">5</span>
+                    <span class="toc-chapter-title">IO Redirection</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="5">
+                    <li class="toc-item toc-level-1" data-slug="sec-5-1">
+                        <a href="#sec-5-1" class="toc-link"><span class="toc-num">5.1</span> Input Redirection
+                            (&lt;)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-5-2">
+                        <a href="#sec-5-2" class="toc-link"><span class="toc-num">5.2</span> Output Redirection
+                            (&gt;)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-5-3">
+                        <a href="#sec-5-3" class="toc-link"><span class="toc-num">5.3</span> Append (&gt;&gt;) และ Pipe
+                            (|)</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="6">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">6</span>
+                    <span class="toc-chapter-title">การแก้ไขและ Debug</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="6">
+                    <li class="toc-item toc-level-1" data-slug="sec-6-1">
+                        <a href="#sec-6-1" class="toc-link"><span class="toc-num">6.1</span> ประเภทของข้อผิดพลาด</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-6-2">
+                        <a href="#sec-6-2" class="toc-link"><span class="toc-num">6.2</span> ข้อความ error
+                            จากคอมไพล์เลอร์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-6-3">
+                        <a href="#sec-6-3" class="toc-link"><span class="toc-num">6.3</span> เทคนิค Debug เบื้องต้น</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-6-4">
+                        <a href="#sec-6-4" class="toc-link"><span class="toc-num">6.4</span> เครื่องมือ Debug ใน IDE</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="7">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">7</span>
+                    <span class="toc-chapter-title">อาร์เรย์ (Array)</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="7">
+                    <li class="toc-item toc-level-1" data-slug="sec-7-1">
+                        <a href="#sec-7-1" class="toc-link"><span class="toc-num">7.1</span> แนวคิดของอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-7-2">
+                        <a href="#sec-7-2" class="toc-link"><span class="toc-num">7.2</span>
+                            การประกาศและใช้งานอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-7-3">
+                        <a href="#sec-7-3" class="toc-link"><span class="toc-num">7.3</span> อาร์เรย์หลายมิติ</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-7-4">
+                        <a href="#sec-7-4" class="toc-link"><span class="toc-num">7.4</span>
+                            การรวมกลุ่มข้อมูลด้วยอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-7-5">
+                        <a href="#sec-7-5" class="toc-link"><span class="toc-num">7.5</span>
+                            ตัวอย่างการแก้ปัญหาด้วยอาร์เรย์</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="8">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">8</span>
+                    <span class="toc-chapter-title">ฟังก์ชัน (Functions)</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="8">
+                    <li class="toc-item toc-level-1" data-slug="sec-8-1">
+                        <a href="#sec-8-1" class="toc-link"><span class="toc-num">8.1</span>
+                            แนวคิดและการประกาศฟังก์ชัน</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-8-2">
+                        <a href="#sec-8-2" class="toc-link"><span class="toc-num">8.2</span> การคืนค่าผ่านฟังก์ชัน</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-8-3">
+                        <a href="#sec-8-3" class="toc-link"><span class="toc-num">8.3</span> พารามิเตอร์และการส่งค่า</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-8-4">
+                        <a href="#sec-8-4" class="toc-link"><span class="toc-num">8.4</span> ขอบเขตของตัวแปร (Scope)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-8-5">
+                        <a href="#sec-8-5" class="toc-link"><span class="toc-num">8.5</span> Global และ Local
+                            Variable</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="9">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">9</span>
+                    <span class="toc-chapter-title">ฟังก์ชันเวียนเกิด (Recursion)</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="9">
+                    <li class="toc-item toc-level-1" data-slug="sec-9-1">
+                        <a href="#sec-9-1" class="toc-link"><span class="toc-num">9.1</span> แนวคิดของ Recursion</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-9-2">
+                        <a href="#sec-9-2" class="toc-link"><span class="toc-num">9.2</span> Base Case และ Recursive
+                            Case</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-9-3">
+                        <a href="#sec-9-3" class="toc-link"><span class="toc-num">9.3</span> ตัวอย่าง: Factorial และ
+                            Fibonacci</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-9-4">
+                        <a href="#sec-9-4" class="toc-link"><span class="toc-num">9.4</span> ข้อควรระวังเมื่อใช้
+                            Recursion</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="10">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">10</span>
+                    <span class="toc-chapter-title">พอยน์เตอร์ (Pointer)</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="10">
+                    <li class="toc-item toc-level-1" data-slug="sec-10-1">
+                        <a href="#sec-10-1" class="toc-link"><span class="toc-num">10.1</span>
+                            ที่อยู่ในหน่วยความจำและพอยน์เตอร์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-10-2">
+                        <a href="#sec-10-2" class="toc-link"><span class="toc-num">10.2</span>
+                            การประกาศและใช้งานพอยน์เตอร์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-10-3">
+                        <a href="#sec-10-3" class="toc-link"><span class="toc-num">10.3</span> พอยน์เตอร์กับอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-10-4">
+                        <a href="#sec-10-4" class="toc-link"><span class="toc-num">10.4</span> พอยน์เตอร์กับฟังก์ชัน</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="11">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">11</span>
+                    <span class="toc-chapter-title">class และ struct</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="11">
+                    <li class="toc-item toc-level-1" data-slug="sec-11-1">
+                        <a href="#sec-11-1" class="toc-link"><span class="toc-num">11.1</span> struct ใน C++</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-11-2">
+                        <a href="#sec-11-2" class="toc-link"><span class="toc-num">11.2</span> class และการเข้าถึง
+                            (access specifier)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-11-3">
+                        <a href="#sec-11-3" class="toc-link"><span class="toc-num">11.3</span> Constructor และ
+                            Destructor</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-11-4">
+                        <a href="#sec-11-4" class="toc-link"><span class="toc-num">11.4</span> Method และสมาชิกของ class </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="12">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">12</span>
+                    <span class="toc-chapter-title">การเรียงและค้นหาข้อมูล</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="12">
+                    <li class="toc-item toc-level-1" data-slug="sec-12-1">
+                        <a href="#sec-12-1" class="toc-link"><span class="toc-num">12.1</span> การเรียงข้อมูล
+                            (Sorting)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-12-2">
+                        <a href="#sec-12-2" class="toc-link"><span class="toc-num">12.2</span> Bubble Sort, Selection Sort และ Insertion Sort
+                            </a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-12-3">
+                        <a href="#sec-12-3" class="toc-link"><span class="toc-num">12.3</span> การค้นหาแบบ Linear
+                            Search</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-12-4">
+                        <a href="#sec-12-4" class="toc-link"><span class="toc-num">12.4</span> การค้นหาแบบ Binary
+                            Search</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="13">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">13</span>
+                    <span class="toc-chapter-title">สตริง (String)</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="13">
+                    <li class="toc-item toc-level-1" data-slug="sec-13-1">
+                        <a href="#sec-13-1" class="toc-link"><span class="toc-num">13.1</span> C-style string และ
+                            std::string</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-13-2">
+                        <a href="#sec-13-2" class="toc-link"><span class="toc-num">13.2</span> การอ่านและเขียนสตริง</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-13-3">
+                        <a href="#sec-13-3" class="toc-link"><span class="toc-num">13.3</span> การจัดการสตริงใน C++</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-13-4">
+                        <a href="#sec-13-4" class="toc-link"><span class="toc-num">13.4</span>
+                            ตัวอย่างการใช้งานสตริง</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="14">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">14</span>
+                    <span class="toc-chapter-title">Linked List</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="14">
+                    <li class="toc-item toc-level-1" data-slug="sec-14-1">
+                        <a href="#sec-14-1" class="toc-link"><span class="toc-num">14.1</span> แนวคิดของ Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-14-2">
+                        <a href="#sec-14-2" class="toc-link"><span class="toc-num">14.2</span> Singly Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-14-3">
+                        <a href="#sec-14-3" class="toc-link"><span class="toc-num">14.3</span> Doubly Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-14-4">
+                        <a href="#sec-14-4" class="toc-link"><span class="toc-num">14.4</span> Circular Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-14-5">
+                        <a href="#sec-14-5" class="toc-link"><span class="toc-num">14.5</span> ตัวอย่างการใช้งาน Linked List</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="15">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">15</span>
+                    <span class="toc-chapter-title">Stack</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="15">
+                    <li class="toc-item toc-level-1" data-slug="sec-15-1">
+                        <a href="#sec-15-1" class="toc-link"><span class="toc-num">15.1</span> แนวคิดของ Stack
+                            (LIFO)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-15-2">
+                        <a href="#sec-15-2" class="toc-link"><span class="toc-num">15.2</span> การ Implement Stack
+                            ด้วยอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-15-3">
+                        <a href="#sec-15-3" class="toc-link"><span class="toc-num">15.3</span> การ Implement Stack ด้วย
+                            Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-15-4">
+                        <a href="#sec-15-4" class="toc-link"><span class="toc-num">15.4</span> std::stack ใน STL</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="toc-chapter" data-chapter="16">
+                <button class="toc-chapter-toggle" aria-expanded="false">
+                    <span class="toc-chapter-num">16</span>
+                    <span class="toc-chapter-title">Queue</span>
+                    <span class="toc-chapter-arrow">▾</span>
+                </button>
+                <ul class="toc-sublist" data-chapter="16">
+                    <li class="toc-item toc-level-1" data-slug="sec-16-1">
+                        <a href="#sec-16-1" class="toc-link"><span class="toc-num">16.1</span> แนวคิดของ Queue
+                            (FIFO)</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-16-2">
+                        <a href="#sec-16-2" class="toc-link"><span class="toc-num">16.2</span> การ Implement Queue
+                            ด้วยอาร์เรย์</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-16-3">
+                        <a href="#sec-16-3" class="toc-link"><span class="toc-num">16.3</span> การ Implement Queue ด้วย
+                            Linked List</a>
+                    </li>
+                    <li class="toc-item toc-level-1" data-slug="sec-16-4">
+                        <a href="#sec-16-4" class="toc-link"><span class="toc-num">16.4</span> std::queue ใน STL</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <main class="main" id="main">
+        <section class="cover" id="cover">
+            <div class="cover-inner">
+                <h1 class="cover-title">การเขียนโปรแกรม C++</h1>
+                <p class="cover-subtitle">C++ Tutorial</p>
+                <p class="cover-meta">เนื้อหาสำหรับใช้อบรมค่ายโอลิมปิกวิชาการ สอวน.คอมพิวเตอร์​ ค่าย 1</p>
+                <div class="cover-actions">
+                    <a href="#chapter-1" class="btn btn-primary">เริ่มอ่าน</a>
+                    <a href="about.html" class="btn btn-secondary">เกี่ยวกับเรา</a>
+                </div>
+                
+                <div class="cover-toc-preview"><a href="#sec-1-1" class="cover-chip"><span class="chip-num">1</span>
+                        การเริ่มต้นเขียนโปรแกรม</a><a href="#sec-2-1" class="cover-chip"><span class="chip-num">2</span>
+                        โปรแกรมโครงสร้าง และภาษา C++</a><a href="#sec-3-1" class="cover-chip"><span
+                            class="chip-num">3</span> โครงสร้างของภาษา</a><a href="#sec-4-1" class="cover-chip"><span
+                            class="chip-num">4</span> โครงสร้างควบคุม</a><a href="#sec-5-1" class="cover-chip"><span
+                            class="chip-num">5</span> IO Redirection</a><a href="#sec-6-1" class="cover-chip"><span
+                            class="chip-num">6</span> การแก้ไขและ Debug</a><a href="#sec-7-1" class="cover-chip"><span
+                            class="chip-num">7</span> อาร์เรย์ (Array)</a><a href="#sec-8-1" class="cover-chip"><span
+                            class="chip-num">8</span> ฟังก์ชัน (Functions)</a><a href="#sec-9-1"
+                        class="cover-chip"><span class="chip-num">9</span> ฟังก์ชันเวียนเกิด (Recursion)</a><a
+                        href="#sec-10-1" class="cover-chip"><span class="chip-num">10</span> พอยน์เตอร์ (Pointer)</a><a
+                        href="#sec-11-1" class="cover-chip"><span class="chip-num">11</span> class และ struct</a><a
+                        href="#sec-12-1" class="cover-chip"><span class="chip-num">12</span>
+                        การเรียงและค้นหาข้อมูล</a><a href="#sec-13-1" class="cover-chip"><span
+                            class="chip-num">13</span> สตริง (String)</a><a href="#sec-14-1" class="cover-chip"><span
+                            class="chip-num">14</span> Linked List</a><a href="#sec-15-1" class="cover-chip"><span
+                            class="chip-num">15</span> Stack</a><a href="#sec-16-1" class="cover-chip"><span
+                            class="chip-num">16</span> Queue</a></div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-1">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 1</div>
+                <h2 class="chapter-title">การเริ่มต้นเขียนโปรแกรม</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-1-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">1.1</span> <span
+                    class="section-title">การเริ่มต้นเขียนโปรแกรม</span></h2>
+            <div class="section-body">
+                <p>การเขียนโปรแกรม (Programming) คือกระบวนการออกแบบและสร้างชุดคำสั่งให้คอมพิวเตอร์ทำงานตามที่เราต้องการ</p>
+                <p>กระบวนการพื้นฐานที่ควรคุ้นเคย ประกอบด้วย 4 ขั้นตอน: </p>
+                <p><strong>วิเคราะห์ปัญหา → ออกแบบอัลกอริทึม → เขียนโค้ด → ทดสอบและแก้ไข</strong></p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>โปรแกรม (Program)</strong> คือลำดับคำสั่งที่คอมพิวเตอร์สามารถประมวลผลได้
+                            โดยเริ่มจากจุดเข้า <code>main()</code> และทำงานทีละคำสั่ง</p>
+                    </div>
+                </div>
+                <h3 class="sub-heading">ขั้นตอนการพัฒนาโปรแกรม</h3>
+                <ol>
+                    <li>เขียน source code ในไฟล์ <code>.cpp</code> เช่น <code>main.cpp</code></li>
+                    <li>คอมไพล์ด้วย <code>g++</code> เพื่อสร้างไฟล์ executable</li>
+                    <li>รันโปรแกรมและตรวจผลลัพธ์</li>
+                    <li>แก้ไข (debug) จนได้ผลถูกต้องตามโจทย์</li>
+                </ol>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>ในการแข่งขัน ให้เริ่มจากอ่านโจทย์ให้ครบ ระบุ input/output format แล้วเขียนโค้ดทีละส่วน
+                            อย่ารีบส่งก่อนทดสอบกับตัวอย่างในโจทย์</p>
+                    </div>
+                </div>
+        </section>
+        <section class="content-section" id="sec-1-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">1.2</span> <span
+                    class="section-title">การใช้งานคอมไพล์เลอร์ g++</span></h2>
+            <div class="section-body">
+                <p><code>g++</code> เป็นคอมไพล์เลอร์ GNU สำหรับ C++
+                    ที่ใช้กันแพร่หลายในระบบจัดการการแข่งขัน (เช่น DOMjudge, CMS) บน Linux, macOS และ
+                    Windows (MinGW/MSYS2)</p>
+                <h3 class="sub-heading">คำสั่งคอมไพล์มาตรฐาน</h3>
+                <div class="code-block" data-lang="bash">
+                    <pre><code class="language-bash">g++ -std=c++20 -Wall -Wextra -O2 -o program main.cpp
+./program</code></pre>
+                </div>
+                <p class="code-caption">คำสั่งใน Terminal / Command Prompt</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ตัวเลือก</th>
+                                <th>ความหมาย</th>
+                        
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>-std=c++20</code></td>
+                                <td>ใช้มาตรฐาน C++20</td>
+                                
+                            </tr>
+                            <tr>
+                                <td><code>-Wall -Wextra</code></td>
+                                <td>แสดงคำเตือน</td>
+                                
+                            </tr>
+                            <tr>
+                                <td><code>-O2</code></td>
+                                <td>เปิดการ optimize</td>
+                                
+                            </tr>
+                            <tr>
+                                <td><code>-o ชื่อ</code></td>
+                                <td>ตั้งชื่อไฟล์ output</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-caption">สรุป flag ที่ใช้บ่อย</p>
+                <h3 class="sub-heading">คอมไพล์หลายไฟล์</h3>
+                <div class="code-block" data-lang="bash">
+                    <pre><code class="language-bash">g++ -std=c++20 -Wall -o program main.cpp utils.cpp math.cpp</code></pre>
+                </div>
+                <div class="callout note"><span class="callout-label">หมายเหตุ</span>
+                    <div class="callout-body">
+                        <p>ถ้า compile ไม่ผ่าน ให้อ่าน error จาก<strong>บรรทัดแรกที่เกี่ยวข้อง</strong>
+                            มักบอกเลขบรรทัดและสาเหตุ เช่น ลืม semicolon, วงเล็บไม่ครบ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-1-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">1.3</span> <span
+                    class="section-title">เครื่องมือในการเขียนโปรแกรม (IDE)</span></h2>
+            <div class="section-body">
+                <p>IDE (Integrated Development Environment) รวม editor, debugger, build system และบางครั้งมี version
+                    control ไว้ในที่เดียว ช่วยให้เขียนและ debug ได้เร็วขึ้น</p>
+                <h3 class="sub-heading">เครื่องมือที่แนะนำ</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>เครื่องมือ</th>
+                                <th>จุดเด่น</th>
+                                <th>เหมาะกับ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>VS Code</strong></td>
+                                <td>ฟรี, ยืดหยุ่น</td>
+                                <td>มืออาชีพ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sublime Text</strong></td>
+                                <td>ทำงานได้รวดเร็ว</td>
+                                <td>การแข่งขัน</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CLion</strong></td>
+                                <td>Debug/refactor ดี</td>
+                                <td>โปรเจกต์ใหญ่</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Code::Blocks / Dev-C++</strong></td>
+                                <td>ติดตั้งง่าย</td>
+                                <td>ผู้เริ่มต้น</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout tip"><span class="callout-label">คำแนะนำ</span>
+                    <div class="callout-body">
+                        <p>ให้เรียนรู้ทั้ง IDE และคำสั่ง <code>g++</code> ใน terminal
+                            เพราะในการสอบและการแข่งขัน มักต้อง compile บน server โดยไม่มี IDE</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-1-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">1.4</span> <span class="section-title">การลงรหัส
+                    (Coding)</span></h2>
+            <div class="section-body">
+                <p>การลงรหัส (Coding) คือการแปลงอัลกอริทึมที่ออกแบบไว้ ให้เป็นคำสั่ง C++ ที่คอมพิวเตอร์เข้าใจ
+                    โค้ดที่อ่านง่ายช่วยให้ตรวจงาน ทำงานเป็นทีม และ debug ได้เร็วขึ้น</p>
+                <h3 class="sub-heading">หลักการเขียนโค้ดที่ดี</h3>
+                <ul>
+                    <li>ตั้งชื่อตัวแปร/ฟังก์ชันให้สื่อความหมาย เช่น <code>studentCount</code> แทน <code>x</code></li>
+                    <li>จัด indent ให้สม่ำเสมอ (แนะนำ 4 spaces)</li>
+                    <li>แบ่งปัญหาใหญ่เป็นฟังก์ชันย่อย ๆ</li>
+                    <li>เขียน comment อธิบาย ทำไม ไม่ใช่แค่ ทำอะไร</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; "Hello, World!" &lt;&lt; endl; // แสดงข้อความ
+    return 0;  // โปรแกรมทำงานสำเร็จ
+}</code></pre>
+                </div>
+                <p class="code-caption">โปรแกรม Hello World แบบอ่านง่าย — มี comment และ return 0</p>
+                <div class="callout tip"><span class="callout-label">Template</span>
+                    <div class="callout-body">
+                        <p>เก็บ template โปรแกรมมาตรฐานไว้ copy ใช้ทุกครั้ง จะประหยัดเวลาในการแข่งขัน</p>
+                    </div>
+                </div>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    // your code here
+
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Template มาตรฐานสำหรับ competitive programming</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-1-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">1.5</span> <span
+                    class="section-title">การรับข้อมูลและแสดงผลเบื้องต้น</span></h2>
+            <div class="section-body">
+                <p>การรับข้อมูล (Input) และแสดงผล (Output) เป็นพื้นฐานของทุกโจทย์ ใน C++ ใช้ <code>cin</code> รับข้อมูล
+                    และ <code>cout</code> แสดงผล ผ่าน stream มาตรฐาน</p>
+                <h3 class="sub-heading">A+B Problem</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cin &gt;&gt; a &gt;&gt; b; // อ่าน 2 ตัวคั่นด้วย space
+    cout &lt;&lt; a + b &lt;&lt; endl; // แสดงผลรวม
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">อ่านจำนวนเต็ม 2 ค่า แล้วแสดงผล</p>
+                <div class="io-example">
+                    <div class="io-box">
+                        <div class="io-box-label">Input</div>
+                        <pre>5 4</pre>
+                    </div>
+                    <div class="io-box">
+                        <div class="io-box-label">Output</div>
+                        <pre>9</pre>
+                    </div>
+                </div>
+                
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p><code>cin >></code> อ่านทีละ token (คั่นด้วย space) ถ้าต้องการอ่าน<strong>ทั้งบรรทัด</strong>
+                            รวม space ใช้ <code>getline(cin, str)</code></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-2">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 2</div>
+                <h2 class="chapter-title">โปรแกรมโครงสร้าง และภาษา C++</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-2-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">2.1</span> <span
+                    class="section-title">โปรแกรมคอมพิวเตอร์และภาษาคอมพิวเตอร์</span></h2>
+            <div class="section-body">
+                <p>คอมพิวเตอร์ประมวลผลด้วยคำสั่งไบนารี (0 และ 1) ที่ CPU ทำความเข้าใจโดยตรง มนุษย์ไม่สามารถเขียน machine
+                    code ได้อย่างมีประสิทธิภาพ จึงต้องใช้<strong>ภาษาระดับสูง</strong> เช่น C++ เป็นตัวกลาง</p>
+                <p>คอมไพล์เลอร์แปลง source code เป็น object code แล้ว linker รวมเป็น executable ที่รันได้</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ระดับ</th>
+                                <th>ตัวอย่าง</th>
+                                <th>ลักษณะ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Machine</td>
+                                <td>01001101</td>
+                                <td>CPU อ่านได้โดยตรง</td>
+                            </tr>
+                            <tr>
+                                <td>Assembly</td>
+                                <td>MOV AX, 5</td>
+                                <td>ใกล้ hardware, ยากต่อมนุษย์</td>
+                            </tr>
+                            <tr>
+                                <td>High-level</td>
+                                <td>C++, Python, Java</td>
+                                <td>อ่านง่าย, ต้อง compile/interpret</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>ภาษาคอมพิวเตอร์</strong> — ชุดกฎและไวยากรณ์สำหรับเขียนคำสั่งให้คอมพิวเตอร์ทำงาน</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-2-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">2.2</span> <span class="section-title">ภาษา C++
+                    ในการเขียนโปรแกรม</span></h2>
+            <div class="section-body">
+                <p>C++ พัฒนาต่อจาก C โดย Bjarne Stroustrup ปี 1983 รองรับ procedural, object-oriented และ generic
+                    programming ใช้กันแพร่หลายในอุตสาหกรรมซอฟต์แวร์ และการเขียนโปรแกรมเชิงแข่งขัน</p>
+                <ul>
+                    <li><strong>ประสิทธิภาพสูง</strong> — ใกล้ hardware เหมาะกับงานที่ต้องเร็ว</li>
+                    <li><strong>STL</strong> — มี container และ algorithm สำเร็จรูป</li>
+                    <li><strong>หลาย paradigm</strong> — procedural, OOP, template</li>
+                    <li><strong>ข้ามแพลตฟอร์ม</strong> — Linux, Windows, macOS</li>
+                </ul>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>C++ เป็นภาษาหลักใน IOI, TOI และ ICPC เพราะ STL ช่วยลดเวลา implement
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-2-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">2.3</span> <span
+                    class="section-title">โครงสร้างของโปรแกรม C++</span></h2>
+            <div class="section-body">
+                <p>โปรแกรม C++ ประกอบด้วยส่วนหลัก: <strong>preprocessor directives</strong>,
+                    <strong>declarations</strong>, <strong>definitions</strong> และฟังก์ชัน <code>main</code>
+                </p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;    // 1) นำเข้า library (preprocessor)
+using namespace std;   // 2) ใช้ namespace (optional)
+
+int add(int a, int b) { // 3) ฟังก์ชันช่วย
+    return a + b;
+}
+
+int main() {            // 4) จุดเริ่มต้นโปรแกรม
+    int result = add(3, 4);
+    cout &lt;&lt; result &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">โครงสร้างโปรแกรม C++ แบบสมบูรณ์</p>
+                <div class="callout note"><span class="callout-label">หมายเหตุ</span>
+                    <div class="callout-body">
+                        <p>ทุก executable ต้องมี <code>int main()</code> เป็นจุดเข้า ค่า <code>return 0</code>
+                            หมายถึงสำเร็จ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-2-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">2.4</span> <span class="section-title">ฟังก์ชัน main
+                    และ namespace</span></h2>
+            <div class="section-body">
+                <p><code>main()</code> เป็นฟังก์ชันแรกที่ OS เรียกเมื่อรันโปรแกรม</p>
+                <p><code>namespace</code> จัดกลุ่มชื่อป้องกันการชนกัน — <code>std</code> คือ namespace ของ Standard
+                    Library</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+
+namespace Math {
+    int add(int a, int b) { return a + b; }
+    int mul(int a, int b) { return a * b; }
+}
+
+int main() {
+    std::cout &lt;&lt; Math::add(3, 4) &lt;&lt; std::endl;  // 7
+    std::cout &lt;&lt; Math::mul(3, 4) &lt;&lt; std::endl;  // 12
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">namespace แยกกลุ่มฟังก์ชัน</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-2-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">2.5</span> <span class="section-title">มาตรฐาน C++
+                    ที่ควรรู้</span></h2>
+            <div class="section-body">
+                <p>C++ เป็นมาตรฐานที่ใช้ในระบบ judge สมัยใหม่ ฟีเจอร์ที่ควรรู้จักตั้งแต่ต้น:</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ฟีเจอร์</th>
+                                <th>ตัวอย่าง</th>
+                                <th>ประโยชน์</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>auto</code></td>
+                                <td>auto x = 42;</td>
+                                <td>ให้ compiler อนุมานชนิด</td>
+                            </tr>
+                            <tr>
+                                <td>Range-for</td>
+                                <td>for (auto v : vec)</td>
+                                <td>วน container สะดวก</td>
+                            </tr>
+                            <tr>
+                                <td><code>std::vector</code></td>
+                                <td>vector&lt;int&gt; v;</td>
+                                <td>array ยืดหยุ่น</td>
+                            </tr>
+                            <tr>
+                                <td><code>nullptr</code></td>
+                                <td>int* p = nullptr;</td>
+                                <td>pointer ว่างที่ปลอดภัย</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    auto numbers = vector{1, 2, 3, 4, 5};
+
+    for (auto value : numbers) {
+        cout &lt;&lt; value &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">C++: auto + range-based for + vector</p>
+                    <div class="io-box">
+                        <div class="io-box-label">Output</div>
+                        <pre>1 2 3 4 5</pre>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-3">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 3</div>
+                <h2 class="chapter-title">โครงสร้างของภาษา</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-3-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">3.1</span> <span class="section-title">ชนิดของข้อมูล
+                    (Data Types)</span></h2>
+            <div class="section-body">
+                <p>ชนิดข้อมูล (data type) กำหนดว่าตัวแปรเก็บค่าประเภทใด ใช้หน่วยความจำเท่าใด และทำ operation อะไรได้</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ชนิด</th>
+                                <th>ขนาด</th>
+                                <th>ช่วงค่า</th>
+                                <th>สำหรับ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>int</code></td>
+                                <td>4 bytes</td>
+                                <td>-2,147,483,648 ถึง 2,147,483,647</td>
+                                <td>จำนวนเต็ม</td>
+                            </tr>
+                            <tr>
+                                <td><code>long long</code></td>
+                                <td>8 bytes</td>
+                                <td>-9,223,372,036,854,775,808 ถึง 9,223,372,036,854,775,807</td>
+                                <td>จำนวนเต็ม</td>
+                            </tr>
+                            <tr>
+                                <td><code>double</code></td>
+                                <td>8 bytes</td>
+                                <td>1.7 × 10⁻³⁰⁸ ถึง 1.7 × 10³⁰⁸</td>
+                                <td>ทศนิยม</td>
+                            </tr>
+                            <tr>
+                                <td><code>char</code></td>
+                                <td>1 byte</td>
+                                <td>-128 ถึง 127</td>
+                                <td>ตัวอักษร</td>
+                            </tr>
+                            <tr>
+                                <td><code>bool</code></td>
+                                <td>1 byte</td>
+                                <td>true/false</td>
+                                <td>เงื่อนไข</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-caption">ชนิดข้อมูลพื้นฐานใน C++</p>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>ถ้าคูณหรือบวกแล้วมากกว่า 2 × 10⁹ หรือน้อยกว่า -2 × 10⁹ ให้ใช้ <code>long long</code></p>
+                    </div>
+                </div>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int count = 100;
+    long long bigNumber = 1000000000000LL;
+    double pi = 3.14159;
+    char grade = 'A';
+    bool passed = true;
+
+    cout &lt;&lt; count &lt;&lt; " " &lt;&lt; bigNumber &lt;&lt; " " &lt;&lt; pi &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="table-caption">การกำหนดค่าเริ่มต้น (Initialization)</p>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>100 1000000000000 3.14159</pre>
+            </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-3-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">3.2</span> <span class="section-title">ตัวแปร
+                    (Variables)</span></h2>
+            <div class="section-body">
+                <p>ตัวแปร (variable) เป็นชื่อที่อ้างถึงพื้นที่ในหน่วยความจำ ต้อง<strong>ประกาศชนิด</strong>ก่อนใช้งาน
+                </p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score = 85;       // ประกาศ + กำหนดค่าเริ่มต้น
+    int bonus;            // ประกาศอย่างเดียว (ค่าไม่แน่นอน!)
+    bonus = 10;           // กำหนดค่าทีหลัง
+
+    score = score + bonus;  // เปลี่ยนค่าได้
+    cout &lt;&lt; score &lt;&lt; endl;  // 95
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">การประกาศและเปลี่ยนค่าตัวแปร</p>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>ตัวแปรที่ประกาศแต่ไม่ initialize อาจมีค่าขยะ (garbage value) — ควรกำหนดค่าเสมอ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-3-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">3.3</span> <span class="section-title">ค่าคงที่
+                    (Constants)</span></h2>
+            <div class="section-body">
+                <p>ค่าคงที่ (constant) ไม่เปลี่ยนแปลงหลังกำหนด ช่วยป้องกัน bug และทำให้โค้ดอ่านง่าย</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int MAX_STUDENTS = 50;
+    const double PI = 3.14159265;
+    constexpr int ARRAY_SIZE = 100;  // คำนวณตอน compile
+
+    // MAX_STUDENTS = 60;  // ERROR: แก้ไม่ได้
+
+    cout &lt;&lt; "Max: " &lt;&lt; MAX_STUDENTS &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <div class="callout tip"><span class="callout-label">คำแนะนำ</span>
+                    <div class="callout-body">
+                        <p>ใช้ <code>const</code> กับค่าที่ไม่ควรเปลี่ยน เช่น ขนาด array, ค่าทางฟิสิกส์</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-3-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">3.4</span> <span class="section-title">ตัวปฏิบัติการ
+                    (Operators)</span></h2>
+            <div class="section-body">
+                <p>ตัวปฏิบัติการ (operator) ใช้คำนวณ เปรียบเทียบ และรวมเงื่อนไข</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>กลุ่ม</th>
+                                <th>ตัวปฏิบัติการ</th>
+                                <th>ตัวอย่าง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Arithmetic</td>
+                                <td>+ − * / %</td>
+                                <td>10 / 3 = 3 (หารเศษทิ้ง)</td>
+                            </tr>
+                            <tr>
+                                <td>Comparison</td>
+                                <td>== != <>
+                                        <=>=</td>
+                                <td>a == b → true/false</td>
+                            </tr>
+                            <tr>
+                                <td>Logical</td>
+                                <td>&& || !</td>
+                                <td>(a>0) && (b>0)</td>
+                            </tr>
+                            <tr>
+                                <td>Assignment</td>
+                                <td>= += -= *= /=</td>
+                                <td>x += 5 ≡ x = x + 5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a = 10, b = 3;
+
+    cout &lt;&lt; "a + b = " &lt;&lt; (a + b) &lt;&lt; endl;   // 13
+    cout &lt;&lt; "a / b = " &lt;&lt; (a / b) &lt;&lt; endl;   // 3 (integer division!)
+    cout &lt;&lt; "a % b = " &lt;&lt; (a % b) &lt;&lt; endl;   // 1 (เศษ)
+    cout &lt;&lt; "a &gt; b  = " &lt;&lt; (a &gt; b) &lt;&lt; endl;  // 1 (true)
+
+    return 0;
+}</code></pre>
+                </div>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>หารจำนวนเต็ม (<code>int / int</code>) ตัดเศษทิ้ง — ใช้ <code>double</code> ถ้าต้องการทศนิยม
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-3-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">3.5</span> <span
+                    class="section-title">นิพจน์และข้อความสั่ง (Expressions &amp; Statements)</span></h2>
+            <div class="section-body">
+                <p><strong>นิพจน์ (Expression)</strong> มีค่า เช่น <code>3 + 4 * 2</code> มีค่า 11 ตามลำดับความสำคัญของ
+                    operator</p>
+                <p><strong>ข้อความสั่ง (Statement)</strong> เป็นคำสั่งที่ทำให้โปรแกรมดำเนินการ เช่น การกำหนดค่า, if,
+                    return</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 5, y = 3;
+
+    int result = (x + y) * 2;     // expression ใน statement
+    cout &lt;&lt; result &lt;&lt; endl;       // statement: แสดงผล
+    return 0;                     // statement: จบโปรแกรม
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-4">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 4</div>
+                <h2 class="chapter-title">โครงสร้างควบคุม</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-4-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.1</span> <span class="section-title">if และ
+                    if-else</span></h2>
+            <div class="section-body">
+                <p>โครงสร้าง <code>if-else</code> เลือกทำงานตามเงื่อนไข boolean (true/false)</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int score;
+    cin &gt;&gt; score;
+
+    if (score &gt;= 50) {
+        cout &lt;&lt; "Pass" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "Fail" &lt;&lt; endl;
+    }
+
+    // if-else if หลายเงื่อนไข
+    if (score &gt;= 80) cout &lt;&lt; "Grade A" &lt;&lt; endl;
+    else if (score &gt;= 70) cout &lt;&lt; "Grade B" &lt;&lt; endl;
+    else if (score &gt;= 60) cout &lt;&lt; "Grade C" &lt;&lt; endl;
+    else cout &lt;&lt; "Grade F" &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ตรวจผ่าน/ตก และให้เกรด</p>
+                <div class="io-example">
+                    <div class="io-box">
+                        <div class="io-box-label">Input</div>
+                        <pre>75</pre>
+                    </div>
+                    <div class="io-box">
+                        <div class="io-box-label">Output</div>
+                        <pre>Pass
+Grade B</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-4-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.2</span> <span class="section-title">switch</span>
+            </h2>
+            <div class="section-body">
+                <p><code>switch</code> เหมาะเมื่อเปรียบเทียบตัวแปรหนึ่งตัวกับหลายค่าคงที่</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int day;
+    cin &gt;&gt; day;
+
+    switch (day) {
+        case 1: cout &lt;&lt; "Monday";    break;
+        case 2: cout &lt;&lt; "Tuesday";   break;
+        case 3: cout &lt;&lt; "Wednesday"; break;
+        case 4: cout &lt;&lt; "Thursday";  break;
+        case 5: cout &lt;&lt; "Friday";    break;
+        default: cout &lt;&lt; "Weekend";  break;
+    }
+    cout &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <div class="callout note"><span class="callout-label">หมายเหตุ</span>
+                    <div class="callout-body">
+                        <p>ต้องใส่ <code>break</code> หลังแต่ละ case ไม่งั้นจะ fall-through ไป case ถัดไป</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-4-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.3</span> <span class="section-title">while
+                    loop</span></h2>
+            <div class="section-body">
+                <p>เมื่อโปรแกรมมาถึงบรรทัด <code>while</code> โปรแกรมจะทำการเช็คเงื่อนไข ถ้าเงื่อนไขเป็นจริง โค้ดในปีกกาจะทำงาน แล้วจึงเช็คเงื่อนไขอีกเรื่อยๆ หากเงื่อนไขเป็นเท็จ โค้ดจะข้ามไปหลังปีกกาทันที
+                </p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int i = 1;
+
+    while (i &lt;= 5) {
+        cout &lt;&lt; i &lt;&lt; " ";
+        i++;  // เหมือนกับ i = i + 1
+    }
+    cout &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">พิมพ์ 1 ถึง 5</p>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>1 2 3 4 5</pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-4-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.4</span> <span class="section-title">for loop</span>
+            </h2>
+            <div class="section-body">
+                <p> เมื่อโปรแกรมมาถึงบรรทัด <code>for</code> โปรแกรมจะทำงานส่วน init ก่อนหนึ่งครั้ง แล้วจึงเช็คเงื่อนไข
+                    ถ้าเงื่อนไขเป็นจริง โค้ดส่วน statements จะรัน ตามด้วย end แล้วจึงเช็คเงื่อนไขอีกครั้ง
+                    ถ้าเงื่อนไขเป็นเท็จ จะข้ามไปหลังปีกกาทันที
+                </p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    // แบบ classic for
+    for (int i = 0; i &lt; 5; i++) {
+        cout &lt;&lt; i &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+
+    // แบบ range-based for
+    vector&lt;int&gt; nums = {10, 20, 30};
+    for (int value : nums) {
+        cout &lt;&lt; value &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-4-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.5</span> <span class="section-title">do-while
+                    loop</span></h2>
+            <div class="section-body">
+                <p>คล้ายกับ <code>while</code> แต่จะทำงานก่อน แล้วค่อยเช็คเงื่อนไข
+                    หากเงื่อนไขเป็นจริงก็จะทำซ้ำอีก แต่หากเป็นเท็จ ก็จะเลิกทำ
+                    วิธีนี้ โค้ดใน loop จะทำงานอย่างน้อย 1 ครั้ง</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int number;
+
+    do {
+        cout &lt;&lt; "Enter a positive number: ";
+        cin &gt;&gt; number;
+    } while (number &lt;= 0);
+
+    cout &lt;&lt; "You entered: " &lt;&lt; number &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">บังคับให้ใส่เลขบวก</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-4-6" data-level="2">
+            <h2 class="section-heading"><span class="section-num">4.6</span> <span class="section-title">break, continue
+                    และ nested loop</span></h2>
+            <div class="section-body">
+                <p><code>break</code> ออกจากลูปทันที </p>
+                <p><code>continue</code> ข้ามรอบปัจจุบันไปรอบถัดไป</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // แสดงเลขคี่ 1-7
+    for (int i = 1; i &lt;= 10; i++) {
+        if (i % 2 == 0) continue;  // ข้ามเลขคู่
+        if (i &gt; 7) break;          // หยุดเมื่อเกิน 7
+        cout &lt;&lt; i &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;  // 1 3 5 7
+    return 0;
+}</code></pre>
+                </div>
+                <h3 class="sub-heading">Nested loop — ตารางคูณ</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    for (int i = 1; i &lt;= 3; i++) {
+        for (int j = 1; j &lt;= 3; j++) {
+            cout &lt;&lt; i &lt;&lt; "x" &lt;&lt; j &lt;&lt; "=" &lt;&lt; (i*j) &lt;&lt; "  ";
+        }
+        cout &lt;&lt; endl;
+    }
+    return 0;
+}</code></pre>
+                </div>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>1x1=1  1x2=2  1x3=3 
+2x1=2  2x2=4  2x3=6
+3x1=3  3x2=6  3x3=9  </pre>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-5">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 5</div>
+                <h2 class="chapter-title">IO Redirection</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-5-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">5.1</span> <span class="section-title">Input
+                    Redirection (&lt;)</span></h2>
+            <div class="section-body">
+                <p>Input redirection (<code>&lt;</code>) ส่งเนื้อหาไฟล์เข้า <code>stdin</code> แทน keyboard —
+                    โปรแกรมยังใช้ <code>cin</code> เหมือนเดิม</p>
+                    
+                <div class="code-block" data-lang="bash">
+                    <pre><code class="language-bash"># สร้างไฟล์ input.txt
+# 5
+# 10
+
+./program &lt; input.txt</code></pre>
+                </div>
+                <p class="code-caption">รันโปรแกรมโดยอ่าน input จากไฟล์</p>
+                
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int a, b;
+    cin &gt;&gt; a &gt;&gt; b;
+    cout &lt;&lt; a + b &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">โปรแกรมที่ใช้ cin ตามปกติ</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-5-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">5.2</span> <span class="section-title">Output
+                    Redirection (&gt;)</span></h2>
+            <div class="section-body">
+                <p>Output redirection (<code>&gt;</code>) ส่งผลลัพธ์ไปไฟล์แทนหน้าจอ</p>
+                <div class="code-block" data-lang="bash">
+                    <pre><code class="language-bash">./program &gt; output.txt          # เขียนทับ
+./program &lt; input.txt &gt; out.txt # อ่านจากไฟล์ + เขียนไปไฟล์</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-5-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">5.3</span> <span class="section-title">Append
+                    (&gt;&gt;) และ Pipe (|)</span></h2>
+            <div class="section-body">
+                <p><code>&gt;&gt;</code> ต่อท้ายไฟล์ · <code>|</code> (pipe) ส่ง output โปรแกรมหนึ่งเป็น input
+                    ของอีกโปรแกรม</p>
+                <div class="code-block" data-lang="bash">
+                    <pre><code class="language-bash">./program &gt;&gt; log.txt    # append log
+./program | sort        # ส่ง output ไป sort
+./program | grep Pass   # กรองบรรทัดที่มี Pass</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-6">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 6</div>
+                <h2 class="chapter-title">การแก้ไขและ Debug</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-6-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">6.1</span> <span
+                    class="section-title">ประเภทของข้อผิดพลาด</span></h2>
+            <div class="section-body">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ประเภท</th>
+                                <th>เมื่อเกิด</th>
+                                <th>ตัวอย่าง</th>
+                                <th>วิธีแก้</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Syntax Error</td>
+                                <td>Compile ไม่ผ่าน</td>
+                                <td>ลืม ; วงเล็บไม่ครบ</td>
+                                <td>อ่าน error จาก compiler</td>
+                            </tr>
+                            <tr>
+                                <td>Runtime Error</td>
+                                <td>รันแล้ว crash</td>
+                                <td>หาร 0, index เกิน</td>
+                                <td>ตรวจ edge case</td>
+                            </tr>
+                            <tr>
+                                <td>Logic Error</td>
+                                <td>รันได้ ผลผิด</td>
+                                <td>เงื่อนไข if ผิด</td>
+                                <td>ทดสอบด้วยมือ + debug</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="table-caption">สามประเภทข้อผิดพลาด</p>
+                <p>ในการสอบและแข่งขัน Logic Error เป็นปัญหาที่พบบ่อยที่สุด — ต้องทดสอบกับ input เล็ก ๆ ที่คำนวณมือได้
+                </p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-6-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">6.2</span> <span class="section-title">ข้อความ error
+                    จากคอมไพล์เลอร์</span></h2>
+            <div class="section-body">
+                <p>Compiler แสดง error พร้อม<strong>ชื่อไฟล์ บรรทัด และสาเหตุ</strong></p>
+                <div class="code-block" data-lang="ตัวอย่าง error message">
+                    <pre><code class="language-ตัวอย่าง error message">main.cpp:5:5: error: expected ';' before 'return'
+    5 |     return 0
+      |     ^~~~~~</code></pre>
+                </div>
+                <p class="code-caption">text</p>
+                <ol>
+                    <li>อ่านบรรทัด <code>error:</code> ก่อน</li>
+                    <li>ดูเลขบรรทัด (เช่น <code>5:5</code>)</li>
+                    <li>ตรวจบรรทัดก่อนหน้าด้วย — error อาจเป็นผลพวง</li>
+                </ol>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>Warning ไม่ทำให้ compile ล้ม แต่ควรแก้ — อาจซ่อน bug</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-6-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">6.3</span> <span class="section-title">เทคนิค Debug
+                    เบื้องต้น</span></h2>
+            <div class="section-body">
+                <p>เทคนิค debug ที่ใช้ได้ทั้งในมหาวิทยาลัยและค่าย:</p>
+                <ul>
+                    <li><strong>Print debugging</strong> — ใส่ cout ดูค่าตัวแปร</li>
+                    <li><strong>ทดสอบ input เล็ก</strong> — คำนวณมือแล้วเทียบ</li>
+                    <li><strong>แบ่งโค้ด</strong> — comment ส่วนที่สงสัย ทดสอบทีละส่วน</li>
+                    <li><strong>ใช้ cerr</strong> — debug output ไป stderr ไม่ปน output จริง</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int n = 5, sum = 0;
+    for (int i = 1; i &lt;= n; i++) {
+        sum += i;
+        cerr &lt;&lt; "[debug] i=" &lt;&lt; i &lt;&lt; " sum=" &lt;&lt; sum &lt;&lt; endl;
+    }
+    cout &lt;&lt; sum &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Print debugging ด้วย cerr</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-6-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">6.4</span> <span class="section-title">เครื่องมือ
+                    Debug ใน IDE</span></h2>
+            <div class="section-body">
+                <p>IDE มีเครื่องมือ debug ที่ช่วยในรายวิชา lab:</p>
+                <ul>
+                    <li><strong>Breakpoint</strong> — หยุดที่บรรทัดที่กำหนด</li>
+                    <li><strong>Step Over/Into</strong> — ไล่ทีละบรรทัด/เข้าในฟังก์ชัน</li>
+                    <li><strong>Watch</strong> — ดูค่าตัวแปรแบบ real-time</li>
+                </ul>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-7">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 7</div>
+                <h2 class="chapter-title">อาร์เรย์ (Array)</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-7-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">7.1</span> <span
+                    class="section-title">แนวคิดของอาร์เรย์</span></h2>
+            <div class="section-body">
+                <p>อาร์เรย์ (array) เก็บข้อมูลชนิดเดียวกันหลายตัวในหน่วยความจำต่อเนื่อง เข้าถึงด้วย index เริ่มจาก
+                    <strong>0</strong>
+                </p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>Array</strong> — โครงสร้างเก็บข้อมูลหลาย element โดยแต่ละ element มี index เป็นตัวเลข
+                        </p>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operation</th>
+                                <th>Time</th>
+                                <th>หมายเหตุ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>เข้าถึง arr[i]</td>
+                                <td>O(1)</td>
+                                <td>คำนวณ address ตรง</td>
+                            </tr>
+                            <tr>
+                                <td>ค้นหา (linear)</td>
+                                <td>O(n)</td>
+                                <td>ไล่ทุกตัว</td>
+                            </tr>
+                            <tr>
+                                <td>แทรก/ลบกลาง</td>
+                                <td>O(n)</td>
+                                <td>ต้องเลื่อนข้อมูล</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-7-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">7.2</span> <span
+                    class="section-title">การประกาศและใช้งานอาร์เรย์</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[5] = {10, 20, 30, 40, 50};
+
+    cout &lt;&lt; arr[0] &lt;&lt; endl;  // 10 (ตัวแรก)
+    cout &lt;&lt; arr[4] &lt;&lt; endl;  // 50 (ตัวสุดท้าย)
+
+    arr[2] = 100;  // เปลี่ยนค่าตำแหน่ง index 2
+
+    int n = 5;
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ประกาศ แก้ไข และวนลูป array</p>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>10
+50
+10 20 100 40 50 </pre>
+                </div>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>index ต้องอยู่ในช่วง 0 ถึง n-1 — <code>arr[n]</code> เป็น out-of-bounds (undefined behavior)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-7-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">7.3</span> <span
+                    class="section-title">อาร์เรย์หลายมิติ</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int matrix[3][4] = {
+        {1,  2,  3,  4},
+        {5,  6,  7,  8},
+        {9, 10, 11, 12}
+    };
+
+    for (int i = 0; i &lt; 3; i++) {
+        for (int j = 0; j &lt; 4; j++) {
+            cout &lt;&lt; matrix[i][j] &lt;&lt; "\t";
+        }
+        cout &lt;&lt; endl;
+    }
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">อาร์เรย์ 2 มิติ — ใช้เก็บตาราง/เมทริกซ์</p>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>1	2	3	4	
+5	6	7	8	
+9	10	11	12	</pre>
+                </div>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>matrix[n][m] ใช้บ่อยใน grid problems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-7-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">7.4</span> <span
+                    class="section-title">การรวมกลุ่มข้อมูลด้วยอาร์เรย์</span></h2>
+            <div class="section-body">
+                <p>ใช้ array รวมข้อมูลที่เกี่ยวข้องกัน เช่น คะแนนสอบของนักศึกษา</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    const int MAX = 100;
+    int scores[MAX];
+    int n;
+
+    cin &gt;&gt; n;  // จำนวนนักเรียน
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; scores[i];
+    }
+
+    // คำนวณค่าเฉลี่ย
+    int sum = 0;
+    for (int i = 0; i &lt; n; i++) {
+        sum += scores[i];
+    }
+    cout &lt;&lt; "Average: " &lt;&lt; (double)sum / n &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">เก็บคะแนน n คน แล้วหาค่าเฉลี่ย</p>
+                <div class="io-example">
+                    <div class="io-box">
+                        <div class="io-box-label">Input</div>
+                        <pre>3
+80 90 70</pre>
+                    </div>
+                    <div class="io-box">
+                        <div class="io-box-label">Output</div>
+                        <pre>Average: 80</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-7-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">7.5</span> <span
+                    class="section-title">ตัวอย่างการแก้ปัญหาด้วยอาร์เรย์</span></h2>
+            <div class="section-body">
+                <h3 class="sub-heading">โจทย์: หาค่ามากที่สุดและน้อยที่สุด</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[] = {3, 7, 2, 9, 1, 5};
+    int n = 6;
+
+    int maxVal = arr[0], minVal = arr[0];
+    for (int i = 1; i &lt; n; i++) {
+        if (arr[i] &gt; maxVal) maxVal = arr[i];
+        if (arr[i] &lt; minVal) minVal = arr[i];
+    }
+
+    cout &lt;&lt; "Max: " &lt;&lt; maxVal &lt;&lt; endl;  // 9
+    cout &lt;&lt; "Min: " &lt;&lt; minVal &lt;&lt; endl;  // 1
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-8">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 8</div>
+                <h2 class="chapter-title">ฟังก์ชัน (Functions)</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-8-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">8.1</span> <span
+                    class="section-title">แนวคิดและการประกาศฟังก์ชัน</span></h2>
+            <div class="section-body">
+                <p>ฟังก์ชัน (function) แยกโปรแกรมเป็นส่วนย่อย ใช้ซ้ำได้ อ่านและทดสอบง่าย</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+// ประกาศฟังก์ชัน: รับ int คืน int
+int square(int x) {
+    return x * x;
+}
+
+int main() {
+    cout &lt;&lt; square(5) &lt;&lt; endl;   // 25
+    cout &lt;&lt; square(10) &lt;&lt; endl;  // 100
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ฟังก์ชันคำนวณกำลังสอง</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-8-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">8.2</span> <span
+                    class="section-title">การคืนค่าผ่านฟังก์ชัน</span></h2>
+            <div class="section-body">
+                <p><code>return</code> ส่งค่ากลับ · ฟังก์ชัน <code>void</code> ไม่คืนค่า</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int maxOfTwo(int a, int b) {
+    if (a &gt; b) return a;
+    return b;
+}
+
+void printStars(int n) {
+    for (int i = 0; i &lt; n; i++) cout &lt;&lt; "*";
+    cout &lt;&lt; endl;
+    return ;
+}
+
+int main() {
+    cout &lt;&lt; maxOfTwo(7, 3) &lt;&lt; endl;  // 7
+    printStars(5);                  // *****
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-8-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">8.3</span> <span
+                    class="section-title">พารามิเตอร์และการส่งค่า</span></h2>
+            <div class="section-body">
+                <p>C++ ส่งพarameter แบบ pass-by-value โดย default — ใช้ reference (<code>&</code>)
+                    เมื่อต้องการแก้ค่าต้นฉบับ</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>วิธี</th>
+                                <th>Syntax</th>
+                                <th>ผล</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pass by value</td>
+                                <td>void f(int x)</td>
+                                <td>ได้ copy — แก้ x ไม่กระทบต้นฉบับ</td>
+                            </tr>
+                            <tr>
+                                <td>Pass by reference</td>
+                                <td>void f(int &x)</td>
+                                <td>แก้ x กระทบตัวแปรจริง</td>
+                            </tr>
+                            <tr>
+                                <td>Pass by const ref</td>
+                                <td>void f(const int &x)</td>
+                                <td>อ่านอย่างเดียว ไม่ copy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void swapValues(int &amp;a, int &amp;b) {
+    int temp = a;
+    a = b;
+    b = temp;
+    return ;
+}
+
+int main() {
+    int x = 1, y = 2;
+    swapValues(x, y);
+    cout &lt;&lt; x &lt;&lt; " " &lt;&lt; y &lt;&lt; endl;  // 2 1
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">swap ด้วย reference</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-8-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">8.4</span> <span class="section-title">ขอบเขตของตัวแปร
+                    (Scope)</span></h2>
+            <div class="section-body">
+                <p>Scope คือขอบเขตที่ตัวแปรใช้ได้ — ตัวแปรใน block <code>{ }</code> ใช้ได้เฉพาะใน block นั้น</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 10;
+
+    if (true) {
+        int y = 20;
+        cout &lt;&lt; x + y &lt;&lt; endl;  // OK: 30
+    }
+    // cout &lt;&lt; y;  // ERROR: y ไม่อยู่ใน scope
+
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-8-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">8.5</span> <span class="section-title">Global และ
+                    Local Variable</span></h2>
+            <div class="section-body">
+                <p><strong>Global</strong> ประกาศนอกฟังก์ชัน · <strong>Local</strong> ประกาศในฟังก์ชัน/block</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int globalCounter = 0;  // global — ใช้ได้ทั้งไฟล์
+
+void increment() {
+    int localStep = 1;       // local — ใช้ได้ใน increment() เท่านั้น
+    globalCounter += localStep;
+    return ;
+}
+
+int main() {
+    increment();
+    increment();
+    cout &lt;&lt; globalCounter &lt;&lt; endl;  // 2
+    return 0;
+}</code></pre>
+                </div>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>ใช้ global น้อยที่สุด — ทำให้ debug ยากและเกิด side effect</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-9">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 9</div>
+                <h2 class="chapter-title">ฟังก์ชันเวียนเกิด (Recursion)</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-9-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">9.1</span> <span class="section-title">แนวคิดของ
+                    Recursion</span></h2>
+            <div class="section-body">
+                <p>Recursion คือฟังก์ชันเรียกตัวเอง เพื่อแก้ปัญหาย่อยที่เล็กลง — ต้องมี <strong>base case</strong>
+                    เป็นจุดหยุด</p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>Recursion</strong> — เทคนิคที่ฟังก์ชันเรียกตัวเอง
+                            โดยปัญหาใหญ่ถูกแตกเป็นปัญหาย่อยชนิดเดียวกัน</p>
+                    </div>
+                </div>
+                <p>ตัวอย่างในชีวิตจริง: ดูโดมในโดม (ภาพซ้อนภาพ) — แต่ละชั้นเหมือนชั้นใหญ่ แต่เล็กลง</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-9-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">9.2</span> <span class="section-title">Base Case และ
+                    Recursive Case</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int sum(int n) {
+    if (n &lt;= 0) return 0;        // base case: หยุด
+    return n + sum(n - 1);       // recursive case
+}
+
+int main() {
+    cout &lt;&lt; sum(5) &lt;&lt; endl;  // 15 (= 5+4+3+2+1)
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ผลรวม 1 ถึง n ด้วย recursion</p>
+                <p>การทำงาน: sum(5) → 5 + sum(4) → 5 + 4 + sum(3) → ... → 5 + 4 + 3 + 2 + 1 + 0</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-9-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">9.3</span> <span class="section-title">ตัวอย่าง:
+                    Factorial และ Fibonacci</span></h2>
+            <div class="section-body">
+                <h3 class="sub-heading">Factorial</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">long long factorial(int n) {
+    if (n &lt;= 1) return 1;
+    return n * factorial(n - 1);
+}
+// factorial(5) = 5*4*3*2*1 = 120</code></pre>
+                </div>
+                <h3 class="sub-heading">Fibonacci</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int fib(int n) {
+    if (n &lt;= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+int main() {
+    for (int i = 0; i &lt; 10; i++)
+        cout &lt;&lt; fib(i) &lt;&lt; " ";
+    cout &lt;&lt; endl;  // 0 1 1 2 3 5 8 13 21 34
+    return 0;
+}</code></pre>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*svQ784qk1hvBE3iz7VGGgQ.jpeg" style="width: 90%; height: auto;">
+                </div>
+                <p class="code-caption">Fibonacci Diagram</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-9-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">9.4</span> <span
+                    class="section-title">ข้อควรระวังเมื่อใช้ Recursion</span></h2>
+            <div class="section-body">
+                <ul>
+                    <li>ต้องมี base case ชัดเจน — ไม่งั้น stack overflow</li>
+                    <li>Recursion ลึกเกินไปช้า — ใช้ loop หรือ memoization</li>
+                    <li>Fibonacci naive เป็น O(2ⁿ) — ในการเขียนโปรแกรมเชิงแข่งขันใช้ loop O(n) หรือ DP</li>
+                </ul>
+                
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-10">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 10</div>
+                <h2 class="chapter-title">พอยน์เตอร์ (Pointer)</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-10-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">10.1</span> <span
+                    class="section-title">ที่อยู่ในหน่วยความจำและพอยน์เตอร์</span></h2>
+            <div class="section-body">
+                <p>ตัวแปรทุกตัวมี address ในหน่วยความจำ พอยน์เตอร์เก็บ address นั้น</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 42;
+    cout &lt;&lt; "Value:  " &lt;&lt; x &lt;&lt; endl;
+    cout &lt;&lt; "Address: " &lt;&lt; &amp;x &lt;&lt; endl;  // &amp; = หา address
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-10-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">10.2</span> <span
+                    class="section-title">การประกาศและใช้งานพอยน์เตอร์</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int x = 10;
+    int* ptr = &amp;x;       // ptr เก็บ address ของ x
+
+    cout &lt;&lt; *ptr &lt;&lt; endl;  // 10  (* = dereference อ่านค่า)
+    *ptr = 20;             // เปลี่ยนค่า x ผ่าน pointer
+    cout &lt;&lt; x &lt;&lt; endl;     // 20
+
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ประกาศ pointer, dereference, เปลี่ยนค่า</p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>สัญลักษณ์</th>
+                                <th>ชื่อ</th>
+                                <th>ความหมาย</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>&</code></td>
+                                <td>Address-of</td>
+                                <td>หา address ของตัวแปร</td>
+                            </tr>
+                            <tr>
+                                <td><code>*</code></td>
+                                <td>Dereference</td>
+                                <td>อ่าน/เขียนค่าที่ address</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-10-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">10.3</span> <span
+                    class="section-title">พอยน์เตอร์กับอาร์เรย์</span></h2>
+            <div class="section-body">
+                <p>ชื่อ array แปลว่า pointer ไป element แรก — <code>arr[i]</code> เทียบเท่า <code>*(arr + i)</code></p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int arr[] = {10, 20, 30};
+    int* p = arr;
+
+    cout &lt;&lt; arr[1] &lt;&lt; endl;    // 20
+    cout &lt;&lt; *(p + 1) &lt;&lt; endl;  // 20 (เทียบเท่า)
+    cout &lt;&lt; p[2] &lt;&lt; endl;      // 30
+
+    return 0;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-10-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">10.4</span> <span
+                    class="section-title">พอยน์เตอร์กับฟังก์ชัน</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void increment(int* p) {
+    (*p)++;  // เปลี่ยนค่าที่ pointer ชี้
+}
+
+int main() {
+    int n = 5;
+    increment(&amp;n);
+    cout &lt;&lt; n &lt;&lt; endl;  // 6
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ส่ง pointer ให้ฟังก์ชันแก้ค่า</p>
+                <div class="callout note"><span class="callout-label">หมายเหตุ</span>
+                    <div class="callout-body">
+                        <p>ในทางปฏิบัติ ใช้ reference (<code>int&</code>) มากกว่า pointer สำหรับ pass-by-reference</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-11">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 11</div>
+                <h2 class="chapter-title">class และ struct</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-11-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">11.1</span> <span class="section-title">struct ใน
+                    C++</span></h2>
+            <div class="section-body">
+                <p>struct รวมข้อมูลหลาย field เป็นชนิดข้อมูลใหม่</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    Point p = {3, 4};
+    cout &lt;&lt; "(" &lt;&lt; p.x &lt;&lt; ", " &lt;&lt; p.y &lt;&lt; ")" &lt;&lt; endl; // (3, 4)
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">struct เก็บพิกัด 2 มิติ</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-11-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">11.2</span> <span class="section-title">class
+                    และการเข้าถึง (access specifier)</span></h2>
+            <div class="section-body">
+                <p>class คล้าย struct แต่ default เป็น private — ใช้ public/private ควบคุมการเข้าถึง</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int score;
+
+    void display() {
+        cout &lt;&lt; name &lt;&lt; ": " &lt;&lt; score &lt;&lt; endl;
+    }
+private:
+    int studentId;  // ซ่อนจากภายนอก
+};
+
+int main() {
+    Student s;
+    s.name = "Somchai";
+    s.score = 85;
+    s.display();
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">การสร้าง Class และการกำหนดสิทธิ์การเข้าถึงสมาชิก (public และ private)</p>
+                <div class="io-box">
+                    <div class="io-box-label">Output</div>
+                    <pre>Somchai: 85</pre>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-11-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">11.3</span> <span class="section-title">Constructor
+                    และ Destructor</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Rectangle {
+    int width, height;
+public:
+    // Constructor — เรียกอัตโนมัติเมื่อสร้าง object
+    Rectangle(int w, int h) : width(w), height(h) {}
+
+    int area() const { return width * height; }
+};
+
+int main() {
+    Rectangle r(5, 3);
+    cout &lt;&lt; "Area: " &lt;&lt; r.area() &lt;&lt; endl;  // 15
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Constructor กำหนดค่าเริ่มต้น</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-11-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">11.4</span> <span
+                    class="section-title">Method และสมาชิกของ class </span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+class Counter {
+    int value = 0;
+public:
+    void increment() { value++; }
+    void reset()     { value = 0; }
+    int getValue() const { return value; }
+};
+
+int main() {
+    Counter c;
+    c.increment();
+    c.increment();
+    cout &lt;&lt; c.getValue() &lt;&lt; endl;  // 2
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Method จัดการ state ของ object</p>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-12">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 12</div>
+                <h2 class="chapter-title">การเรียงและค้นหาข้อมูล</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-12-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">12.1</span> <span class="section-title">การเรียงข้อมูล
+                    (Sorting)</span></h2>
+            <div class="section-body">
+                <p>การเรียง (sorting) จัดลำดับข้อมูล — ใน C++ ใช้ <code>std::sort</code> จาก algorithm</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; v = {5, 2, 8, 1, 9};
+    sort(v.begin(), v.end());
+
+    for (int x : v) cout &lt;&lt; x &lt;&lt; " ";
+    cout &lt;&lt; endl;  // 1 2 5 8 9
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">std::sort — O(n log n)</p>
+                <div class="callout tip"><span class="callout-label">คำแนะนำ</span>
+                    <div class="callout-body">
+                        <p>ใช้ std::sort เป็นค่า default — เร็วและ implement ดี (Introsort)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-12-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">12.2</span> <span class="section-title">Bubble Sort, Selection Sort และ Insertion Sort</span></h2>
+            <div class="section-body">
+                <h3 class="sub-heading">Bubble Sort — O(n²)</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">void bubbleSort(int arr[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {
+        for (int j = 0; j &lt; n - i - 1; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+    return ;
+}</code></pre>
+                </div>
+                <p class="code-caption">Bubble Sort</p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Sorting_bubblesort_anim.gif?_=20140912160204" style="width: 50%; height: auto;">
+                    </div>
+                <p>Bubble Sort สลับคู่ที่ adjacent จนเรียงครบ — เข้าใจง่าย แต่ช้า</p>
+                <h3 class="sub-heading">Selection Sort — O(n²)</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">void selectionSort(int arr[], int n) {
+    for (int i = 0; i &lt; n - 1; i++) {      
+        for (int j = i + 1; j &lt; n; j++) {
+            if (arr[j] &lt; arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        int temp = arr[i];
+        arr[i] = arr[min_idx];
+        arr[min_idx] = temp;
+    }
+    return ;
+}</code></pre>
+                </div>
+                <p class="code-caption">Selection Sort</p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Sorting_selection_sort_anim.gif?_=20220209224152" style="width: 50%; height: auto;">
+                    </div>
+                <p>Selection Sort เลือกค่าน้อยที่สุดจากส่วนที่ยังไม่เรียง แล้วสลับมาไว้ด้านหน้า — เข้าใจง่าย แต่ช้า</p>
+                <h3 class="sub-heading">Insertion Sort — O(n²)</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">void insertionSort(int arr[], int n)
+{
+    for (int i = 1; i < n; ++i) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+    return ;
+}</code></pre>
+                </div>
+                <p class="code-caption">Insertion Sort</p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Sorting_insertion_sort_anim.gif?_=20220209222206" style="width: 50%; height: auto;">
+                    </div>
+                <p>Insertion Sort แทรกสมาชิกแต่ละตัวเข้าไปในตำแหน่งที่ถูกต้องของส่วนที่เรียงแล้ว — เข้าใจง่าย และมีประสิทธิภาพเมื่อข้อมูลเกือบเรียงอยู่แล้ว</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-12-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">12.3</span> <span class="section-title">การค้นหาแบบ
+                    Linear Search</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">int linearSearch(int arr[], int n, int target) {
+    for (int i = 0; i &lt; n; i++) {
+        if (arr[i] == target) return i;
+    }
+    return -1;  // ไม่พบ
+}</code></pre>
+                </div>
+                <p class="code-caption">Linear Search — O(n)</p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="https://sushrutkuchik.wordpress.com/wp-content/uploads/2020/05/linear_search.gif" style="width: 50%; height: auto;">
+                    </div>
+                <p>ใช้ได้ทั้งข้อมูลเรียงและไม่เรียง</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-12-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">12.4</span> <span class="section-title">การค้นหาแบบ
+                    Binary Search</span></h2>
+            <div class="section-body">
+                <p>Binary Search ใช้ได้เมื่อข้อมูล<strong>เรียงแล้ว</strong> — แบ่งครึ่งทุกครั้ง O(log n)</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+int binarySearch(int arr[], int n, int target) {
+    int lo = 0, hi = n - 1;
+    while (lo &lt;= hi) {
+        int mid = lo + (hi - lo) / 2;  // ป้องกัน overflow
+        if (arr[mid] == target) return mid;
+        if (arr[mid] &lt; target) lo = mid + 1;
+        else                   hi = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int arr[] = {1, 3, 5, 7, 9, 11};
+    cout &lt;&lt; binarySearch(arr, 6, 7) &lt;&lt; endl;  // 3
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Binary Search — O(log n)</p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="https://sushrutkuchik.wordpress.com/wp-content/uploads/2020/05/bepceumnsg-binary_search_gif.gif" style="width: 50%; height: auto;">
+                    </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-13">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 13</div>
+                <h2 class="chapter-title">สตริง (String)</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-13-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">13.1</span> <span class="section-title">C-style string
+                    และ std::string</span></h2>
+            <div class="section-body">
+                <p><code>char[]</code> เป็น C-style string ลงท้าย <code>\0</code> · <code>std::string</code>
+                    ใช้งานสะดวกกว่า</p>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    char cstr[] = "Hello";       // C-style
+    string s = "Hello";          // C++ string
+
+    cout &lt;&lt; cstr &lt;&lt; endl;
+    cout &lt;&lt; s.length() &lt;&lt; endl;  // 5
+    return 0;
+}</code></pre>
+                </div>
+                <div class="callout tip"><span class="callout-label">คำแนะนำ</span>
+                    <div class="callout-body">
+                        <p>ใช้ std::string เป็นหลัก — ไม่ต้องกังวล buffer overflow</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-13-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">13.2</span> <span
+                    class="section-title">การอ่านและเขียนสตริง</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string name;
+    cout &lt;&lt; "Enter name: ";
+    getline(cin, name);  // อ่านทั้งบรรทัด รวม space
+
+    cout &lt;&lt; "Hello, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">getline อ่านชื่อที่มี space ได้</p>
+                <div class="callout warning"><span class="callout-label">ข้อควรระวัง</span>
+                    <div class="callout-body">
+                        <p>ถ้า cin >> มาก่อน getline ต้อง cin.ignore() เพื่อล้าง newline ค้าง</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-13-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">13.3</span> <span
+                    class="section-title">การจัดการสตริงใน C++</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string s = "Hello";
+
+    s += " World";              // ต่อ string
+    cout &lt;&lt; s &lt;&lt; endl;          // Hello World
+    cout &lt;&lt; s.substr(0, 5) &lt;&lt; endl;  // Hello
+    cout &lt;&lt; s.find("World") &lt;&lt; endl; // 6
+    cout &lt;&lt; s.size() &lt;&lt; endl;        // 11
+
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">ฟังก์ชัน string ที่ใช้บ่อย</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-13-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">13.4</span> <span
+                    class="section-title">ตัวอย่างการใช้งานสตริง</span></h2>
+            <div class="section-body">
+                <h3 class="sub-heading">โจทย์: นับจำนวนคำในประโยค</h3>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    string line;
+    getline(cin, line);
+
+    int wordCount = 0;
+    bool inWord = false;
+
+    for (char c : line) {
+        if (c != ' ' &amp;&amp; !inWord) {
+            wordCount++;
+            inWord = true;
+        }
+        if (c == ' ') inWord = false;
+    }
+
+    cout &lt;&lt; wordCount &lt;&lt; endl;
+    return 0;
+}</code></pre>
+                </div>
+                <div class="io-example">
+                    <div class="io-box">
+                        <div class="io-box-label">Input</div>
+                        <pre>hello world foo</pre>
+                    </div>
+                    <div class="io-box">
+                        <div class="io-box-label">Output</div>
+                        <pre>3</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-14">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 14</div>
+                <h2 class="chapter-title">Linked List</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-14-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">14.1</span> <span class="section-title">แนวคิดของ
+                    Linked List</span></h2>
+            <div class="section-body">
+                <p>Linked List เป็นโครงสร้างข้อมูลเชิงเส้นที่เก็บข้อมูลเป็นชุดของ <strong>node</strong> แต่ละ node จะเชื่อมต่อกับ node ถัดไปด้วย pointer หรือ reference ทำให้ข้อมูลไม่จำเป็นต้องจัดเก็บแบบต่อเนื่องในหน่วยความจำ</p>
+                <p>โครงสร้างแบบนี้ช่วยให้สามารถเพิ่มหรือลบ node ได้ง่าย โดยเฉพาะเมื่อต้องแก้ไขที่ต้นรายการหรือกลางรายการ โดยไม่ต้องย้ายข้อมูลทุกตัวเหมือน array</p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>Linked List</strong> — โครงสร้างข้อมูลแบบเชื่อมโยง โดยข้อมูลแต่ละตัวถูกเก็บใน node พร้อม pointer ชี้ไปยัง node ต่อไป</p>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Array</th>
+                                <th>Linked List</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>จัดเก็บในหน่วยความจำ</td>
+                                <td>จัดเรียงต่อเนื่อง</td>
+                                <td>กระจายตามหน่วยความจำ</td>
+                            </tr>
+                            <tr>
+                                <td>ขนาด</td>
+                                <td>คงที่ หรือขยายโดยคัดลอก</td>
+                                <td>ปรับขนาดได้ตาม runtime</td>
+                            </tr>
+                            <tr>
+                                <td>เข้าถึงตำแหน่งเฉพาะ</td>
+                                <td>O(1)</td>
+                                <td>O(n)</td>
+                            </tr>
+                            <tr>
+                                <td>แทรก/ลบที่ต้นรายการ</td>
+                                <td>O(n)</td>
+                                <td>O(1)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>โครงสร้างปกติของ node ใน linked list แบบง่ายที่สุดมีสองส่วนหลัก:</p>
+                <ul>
+                    <li><strong>data</strong> เก็บค่าที่ต้องการจัดเก็บ</li>
+                    <li><strong>next</strong> ชี้ไปยัง node ถัดไปในรายการ</li>
+                </ul>
+                <p>รายการจะเริ่มจาก pointer ที่ชื่อ <strong>head</strong> และ node สุดท้ายจะชี้ไปยัง <code>nullptr</code> ในแบบ singly linked list</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-14-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">14.2</span> <span class="section-title">Singly Linked List</span></h2>
+            <div class="section-body">
+                <p>Singly Linked List เป็น linked list แบบพื้นฐานที่สุด แต่ละ node มี pointer ชี้เฉพาะไปยัง node ถัดไป ทำให้เดินทางจากหัวไปหาหางได้ง่าย แต่ย้อนกลับไม่ได้โดยตรง</p>
+                <p>ตัวอย่างฟังก์ชันพื้นฐานที่ควรรู้:</p>
+                <ul>
+                    <li><strong>pushFront</strong> — แทรก node ที่ต้นรายการ</li>
+                    <li><strong>pushBack</strong> — แทรก node ที่ท้ายรายการ</li>
+                    <li><strong>insertAfter</strong> — แทรก node หลัง node ที่กำหนด</li>
+                    <li><strong>deleteNode</strong> — ลบ node ที่ต้องการ</li>
+                    <li><strong>printList</strong> — แสดงรายการจากหัวถึงท้าย</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct Node {
+    int data;      // ค่าที่เก็บใน node
+    Node* next;    // pointer ไปยัง node ถัดไป
+};
+
+Node* createNode(int value) {
+    return new Node{value, nullptr};
+}
+
+void pushFront(Node*& head, int value) {
+    Node* newNode = createNode(value);
+    newNode->next = head;
+    head = newNode;
+}
+
+void pushBack(Node*& head, int value) {
+    Node* newNode = createNode(value);
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+    Node* p = head;
+    while (p->next != nullptr) {
+        p = p->next;
+    }
+    p->next = newNode;
+}
+
+void insertAfter(Node* prev, int value) {
+    if (prev == nullptr) return;
+    Node* newNode = createNode(value);
+    newNode->next = prev->next;
+    prev->next = newNode;
+}
+
+void deleteNode(Node*& head, int value) {
+    if (head == nullptr) return;
+    while (head != nullptr && head->data == value) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    Node* p = head;
+    while (p != nullptr && p->next != nullptr) {
+        if (p->next->data == value) {
+            Node* temp = p->next;
+            p->next = p->next->next;
+            delete temp;
+        } else {
+            p = p->next;
+        }
+    }
+}
+
+void printList(Node* head) {
+    for (Node* p = head; p != nullptr; p = p->next) {
+        cout &lt;&lt; p->data;
+        if (p->next != nullptr) cout &lt;&lt; " -> ";
+    }
+    cout &lt;&lt; "\n";
+}
+
+int main() {
+    Node* head = nullptr;
+    pushBack(head, 10);
+    pushBack(head, 20);
+    pushFront(head, 5);
+    insertAfter(head->next, 15);  // แทรกหลัง node ที่มีค่า 10
+    printList(head);              // 5 -> 10 -> 15 -> 20
+    deleteNode(head, 10);
+    printList(head);              // 5 -> 15 -> 20
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Singly Linked List — รวมฟังก์ชันพื้นฐาน</p>
+                <ul>
+                    <li>pushFront และ pushBack เป็น 2 วิธีหลักในการเพิ่ม node</li>
+                    <li>insertAfter ช่วยให้แทรก node ได้ตรงตำแหน่งที่ต้องการ</li>
+                    <li>deleteNode ต้องอัปเดต pointer ก่อน delete ทุกครั้ง</li>
+                </ul>
+            </div>
+        </section>
+        <section class="content-section" id="sec-14-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">14.3</span> <span class="section-title">Doubly Linked List</span></h2>
+            <div class="section-body">
+                <p>Doubly Linked List เป็น linked list ที่ node แต่ละตัวเก็บ pointer สองตัว: ชี้ไปยัง node ก่อนหน้า (<code>prev</code>) และ node ถัดไป (<code>next</code>)</p>
+                <p>โครงสร้างนี้ช่วยให้เดินทางทั้งไปข้างหน้าและย้อนกลับได้สะดวกกว่า singly linked list และยังทำให้การลบ node ตรงกลางง่ายขึ้น</p>
+                <p>ฟังก์ชันหลักที่ควรรู้:</p>
+                <ul>
+                    <li><strong>pushFront</strong> — เพิ่ม node ที่ต้นรายการ</li>
+                    <li><strong>pushBack</strong> — เพิ่ม node ที่ท้ายรายการ</li>
+                    <li><strong>insertAfter</strong> — แทรก node หลัง node ที่กำหนด</li>
+                    <li><strong>deleteNode</strong> — ลบ node ที่กำหนดโดยไม่ต้องค้นจากหัวใหม่</li>
+                    <li><strong>printForward</strong> — แสดงรายการจากหัวไปท้าย</li>
+                    <li><strong>printBackward</strong> — แสดงรายการจากท้ายไปหัว</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct DNode {
+    int data;
+    DNode* prev;
+    DNode* next;
+};
+
+DNode* createDNode(int value) {
+    return new DNode{value, nullptr, nullptr};
+}
+
+void pushFront(DNode*& head, int value) {
+    DNode* node = createDNode(value);
+    node->next = head;
+    if (head != nullptr) head->prev = node;
+    head = node;
+}
+
+void pushBack(DNode*& head, int value) {
+    DNode* node = createDNode(value);
+    if (head == nullptr) {
+        head = node;
+        return;
+    }
+    DNode* p = head;
+    while (p->next != nullptr) p = p->next;
+    p->next = node;
+    node->prev = p;
+}
+
+void insertAfter(DNode* prev, int value) {
+    if (prev == nullptr) return;
+    DNode* node = createDNode(value);
+    node->next = prev->next;
+    node->prev = prev;
+    prev->next = node;
+    if (node->next != nullptr) node->next->prev = node;
+}
+
+void deleteNode(DNode*& head, DNode* target) {
+    if (head == nullptr || target == nullptr) return;
+    if (head == target) {
+        head = head->next;
+        if (head != nullptr) head->prev = nullptr;
+        delete target;
+        return;
+    }
+    if (target->prev != nullptr) target->prev->next = target->next;
+    if (target->next != nullptr) target->next->prev = target->prev;
+    delete target;
+}
+
+void printForward(DNode* head) {
+    for (DNode* p = head; p != nullptr; p = p->next) {
+        cout &lt;&lt; p->data;
+        if (p->next != nullptr) cout &lt;&lt; " <-> ";
+    }
+    cout &lt;&lt; "\n";
+}
+
+void printBackward(DNode* tail) {
+    for (DNode* p = tail; p != nullptr; p = p->prev) {
+        cout &lt;&lt; p->data;
+        if (p->prev != nullptr) cout &lt;&lt; " <-> ";
+    }
+    cout &lt;&lt; "\n";
+}
+
+int main() {
+    DNode* head = nullptr;
+    pushBack(head, 10);
+    pushBack(head, 20);
+    pushFront(head, 5);
+    insertAfter(head, 15);    // แทรกหลัง node แรก
+    printForward(head);       // 5 <-> 15 <-> 10 <-> 20
+
+    DNode* tail = head;
+    while (tail->next != nullptr) tail = tail->next;
+    printBackward(tail);      // 20 <-> 10 <-> 15 <-> 5
+
+    deleteNode(head, head->next);  // ลบ node ที่มีค่า 15
+    printForward(head);            // 5 <-> 10 <-> 20
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Doubly Linked List — ฟังก์ชันเพิ่ม, ลบ, และพิมพ์ข้อมูล</p>
+                <ul>
+                    <li>pushFront เพิ่ม node ที่ต้นรายการ โดยอัปเดต <code>prev</code> ของ node เดิม</li>
+                    <li>pushBack ต้องเดินหา node สุดท้ายแล้วเชื่อม node ใหม่ที่ท้าย</li>
+                    <li>insertAfter เพิ่ม node หลัง node ที่กำหนดและเชื่อม pointer สองฝั่งให้ถูกต้อง</li>
+                    <li>deleteNode ลบ node โดยอาศัย <code>prev</code> และ <code>next</code> ของ target</li>
+                    <li>printBackward แสดงผลย้อนกลับจากท้ายไปหัว ใช้ง่ายเมื่อมี <code>prev</code></li>
+                </ul>
+            </div>
+        </section>
+        <section class="content-section" id="sec-14-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">14.4</span> <span class="section-title">Circular Linked List</span></h2>
+            <div class="section-body">
+                <p>Circular Linked List เป็น linked list ที่ node สุดท้ายจะชี้กลับไปยัง node แรก แทนที่จะชี้ไปยัง <code>nullptr</code> ทำให้โครงสร้างกลายเป็นวงกลม</p>
+                <p>โครงสร้างแบบนี้เหมาะกับการทำงานที่ต้องวนรอบข้อมูลเป็นลูป เช่น playlist, scheduler, หรือระบบรอบซ้ำ</p>
+                <p>ฟังก์ชันสำคัญที่ควรรู้:</p>
+                <ul>
+                    <li><strong>pushBack</strong> — เพิ่ม node ใหม่ที่ท้ายแล้วอัปเดต <code>tail</code></li>
+                    <li><strong>insertAfter</strong> — แทรก node หลัง node ที่กำหนดในลูป</li>
+                    <li><strong>deleteValue</strong> — ลบ node ตามค่าและปรับ <code>tail</code> หากจำเป็น</li>
+                    <li><strong>printCircular</strong> — แสดงรายการโดยวนกลับจนถึงหัว</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+struct CNode {
+    int data;
+    CNode* next;
+};
+
+CNode* createCNode(int value) {
+    return new CNode{value, nullptr};
+}
+
+void pushBack(CNode*& tail, int value) {
+    CNode* node = createCNode(value);
+    if (tail == nullptr) {
+        node->next = node;
+        tail = node;
+        return;
+    }
+    node->next = tail->next;
+    tail->next = node;
+    tail = node;
+}
+
+void insertAfter(CNode* prev, int value) {
+    if (prev == nullptr) return;
+    CNode* node = createCNode(value);
+    node->next = prev->next;
+    prev->next = node;
+}
+
+void deleteValue(CNode*& tail, int value) {
+    if (tail == nullptr) return;
+    CNode* curr = tail->next;
+    CNode* prev = tail;
+    bool found = false;
+    do {
+        if (curr->data == value) {
+            found = true;
+            prev->next = curr->next;
+            if (curr == tail) {
+                tail = (curr == prev) ? nullptr : prev;
+            }
+            delete curr;
+            break;
+        }
+        prev = curr;
+        curr = curr->next;
+    } while (curr != tail->next);
+}
+
+void printCircular(CNode* tail) {
+    if (tail == nullptr) return;
+    CNode* head = tail->next;
+    CNode* p = head;
+    do {
+        cout &lt;&lt; p->data;
+        p = p->next;
+        if (p != head) cout &lt;&lt; " -> ";
+    } while (p != head);
+    cout &lt;&lt; "\n";
+}
+
+int main() {
+    CNode* tail = nullptr;
+    pushBack(tail, 10);
+    pushBack(tail, 20);
+    pushBack(tail, 30);
+    insertAfter(tail->next, 15); // แทรกหลัง node แรก
+    printCircular(tail);         // 10 -> 15 -> 20 -> 30
+    deleteValue(tail, 20);
+    printCircular(tail);         // 10 -> 15 -> 30
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Circular Linked List — ฟังก์ชันพื้นฐานสำหรับการเพิ่ม, แทรก, ลบ, และพิมพ์</p>
+                <ul>
+                    <li>pushBack เพิ่ม node ใหม่ที่ท้ายโดยไม่ตัดลูป</li>
+                    <li>insertAfter เพิ่ม node ใหม่สำหรับตำแหน่งใด ๆ ในวงกลม</li>
+                    <li>deleteValue ต้องตรวจสอบกรณีลบ node แรก/สุดท้ายและปรับ <code>tail</code> ให้ถูกต้อง</li>
+                </ul>
+            </div>
+        </section>
+        <section class="content-section" id="sec-14-5" data-level="2">
+            <h2 class="section-heading"><span class="section-num">14.5</span> <span class="section-title">ตัวอย่างการใช้งาน Linked List</span></h2>
+            <div class="section-body">
+                <p>Linked list ถูกใช้ในหลายงานที่ต้องการโครงสร้างข้อมูลแบบยืดหยุ่น เช่น ในการจัดการหน่วยความจำแบบ dynamic, สร้าง adjacency list สำหรับกราฟ, หรือใช้เป็นฐานของ stack และ queue</p>
+                <p>ตัวอย่างการใช้งานที่พบบ่อยมีดังนี้:</p>
+                <ul>
+                    <li>เก็บรายการเพลงหรือ playlist ที่สามารถเพิ่ม/ลบเพลงได้บ่อย</li>
+                    <li>เก็บโหนดกราฟในรูปแบบ adjacency list เพื่อประหยัดพื้นที่เมื่อกราฟมีค่าเป็น sparse</li>
+                    <li>ใช้งานใน text editor สำหรับ undo/redo เพราะสามารถเพิ่มและลบข้อมูลได้ง่าย</li>
+                    <li>ใช้สร้าง stack หรือ queue เมื่อไม่ต้องการกำหนดขนาดล่วงหน้า</li>
+                </ul>
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">void append(Node*& head, int value) {
+    Node* newNode = new Node{value, nullptr};
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+    Node* p = head;
+    while (p->next != nullptr) p = p->next;
+    p->next = newNode;
+}
+
+void removeValue(Node*& head, int value) {
+    while (head != nullptr && head->data == value) {
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    Node* p = head;
+    while (p != nullptr && p->next != nullptr) {
+        if (p->next->data == value) {
+            Node* temp = p->next;
+            p->next = p->next->next;
+            delete temp;
+        } else {
+            p = p->next;
+        }
+    }
+}</code></pre>
+                </div>
+                <p class="code-caption">ตัวอย่างเพิ่มเติม: เพิ่มท้ายและลบค่าที่ต้องการ</p>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>ถ้าต้องการเข้าถึงตำแหน่งบ่อย ๆ หรือเก็บข้อมูลขนาดคงที่ array/vector จะทำได้ดีกว่า แต่ linked list ดีเมื่อต้องแก้ไขตำแหน่งบ่อย</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-15">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 15</div>
+                <h2 class="chapter-title">Stack</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-15-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">15.1</span> <span class="section-title">แนวคิดของ
+                    Stack (LIFO)</span></h2>
+            <div class="section-body">
+                <p>Stack เป็นโครงสร้างข้อมูลแบบ LIFO (Last In, First Out) — ข้อมูลที่ถูกใส่เข้ามาล่าสุดจะถูกเอาออกก่อนเสมอ การใช้งานจริงมักจะใส่หรือหยิบข้อมูลเฉพาะจากด้านบน (top) เท่านั้น</p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>Stack</strong> — โครงสร้างที่รองรับ push (ใส่), pop (เอาออก), top (ดูตัวบนสุด)</p>
+                    </div>
+                </div>
+                <p>ตัวอย่างในชีวิตจริง: จานซ้อนกัน — ใส่หรือหยิบได้เฉพาะจานด้านบนสุด</p>
+                <ul>
+                    <li>Stack ช่วยให้ย้อนกลับสถานะได้ง่าย เช่น undo/redo</li>
+                    <li>ใช้เก็บข้อมูลระหว่างการทำ recursion และ DFS</li>
+                    <li>ใช้ตรวจสอบวงเล็บสมดุลและประมวลผลนิพจน์คณิตศาสตร์</li>
+                </ul>
+            </div>
+        </section>
+        <section class="content-section" id="sec-15-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">15.2</span> <span class="section-title">การ Implement
+                    Stack ด้วยอาร์เรย์</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int MAXN = 1000;
+int stackArr[MAXN];
+int topIndex = -1;
+
+void push(int value) {
+    stackArr[++topIndex] = value;
+}
+
+int pop() {
+    return stackArr[topIndex--];
+}
+
+int peek() {
+    return stackArr[topIndex];
+}
+
+bool isEmpty() {
+    return topIndex &lt; 0;
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    cout &lt;&lt; peek() &lt;&lt; endl;  // 30
+    cout &lt;&lt; pop() &lt;&lt; endl;   // 30
+    cout &lt;&lt; pop() &lt;&lt; endl;   // 20
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Stack ด้วย array</p>
+                <div class="callout note"><span class="callout-label">คำเตือน</span>
+                    <div class="callout-body">
+                        <p>สแตกแบบ array มีขนาดคงที่ หากใส่เกินขนาดจะเกิด overflow และต้องเช็คให้ดีว่าไม่ดึงออกจาก stack ว่าง</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-15-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">15.3</span> <span class="section-title">การ Implement
+                    Stack ด้วย Linked List</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">struct StackNode {
+    int data;
+    StackNode* next;
+};
+
+void pushNode(StackNode*&amp; top, int value) {
+    StackNode* node = new StackNode{value, top};
+    top = node;
+}
+
+int popNode(StackNode*&amp; top) {
+    int value = top-&gt;data;
+    StackNode* temp = top;
+    top = top-&gt;next;
+    delete temp;
+    return value;
+}</code></pre>
+                </div>
+                <p class="code-caption">Stack ด้วย linked list</p>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>Stack ด้วย linked list ทำให้ push และ pop เป็น O(1) ตราบใดที่ชี้ top อยู่เสมอ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-15-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">15.4</span> <span class="section-title">std::stack ใน
+                    STL</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+#include &lt;string&gt;
+using namespace std;
+
+bool isBalanced(string s) {
+    stack&lt;char&gt; st;
+    for (char c : s) {
+        if (c == '(' || c == '[' || c == '{')
+            st.push(c);
+        else if (c == ')' || c == ']' || c == '}') {
+            if (st.empty()) return false;
+            st.pop();
+        }
+    }
+    return st.empty();
+}
+
+int main() {
+    cout &lt;&lt; isBalanced("({[]})") &lt;&lt; endl;  // 1 (true)
+    cout &lt;&lt; isBalanced("([)]") &lt;&lt; endl;    // 0 (false)
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">std::stack — ตรวจวงเล็บสมดุล</p>
+                <div class="callout tip"><span class="callout-label">เพิ่มเติม</span>
+                    <div class="callout-body">
+                        <p>std::stack ใช้บ่อยใน DFS, bracket matching, monotonic stack</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="chapter-divider" id="chapter-16">
+            <div class="chapter-divider-inner">
+                <div class="chapter-num">บทที่ 16</div>
+                <h2 class="chapter-title">Queue</h2>
+            </div>
+        </section>
+        </div>
+        <section class="content-section" id="sec-16-1" data-level="2">
+            <h2 class="section-heading"><span class="section-num">16.1</span> <span class="section-title">แนวคิดของ
+                    Queue (FIFO)</span></h2>
+            <div class="section-body">
+                <p>Queue เป็นโครงสร้างข้อมูลแบบ FIFO (First In, First Out) — ข้อมูลที่เข้ามาก่อนจะออกก่อน การใช้งานทั่วไปคือ enqueue ที่ท้ายและ dequeue ที่หัว</p>
+                <div class="callout definition"><span class="callout-label">นิยาม</span>
+                    <div class="callout-body">
+                        <p><strong>Queue</strong> — โครงสร้างที่รองรับ enqueue (ใส่ท้าย), dequeue (เอาหัว), front
+                            (ดูตัวหน้า)</p>
+                    </div>
+                </div>
+                <ul>
+                    <li>ใช้ใน BFS เพื่อเยี่ยมชมโหนดตามลำดับระดับ</li>
+                    <li>ใช้ในระบบคิว, scheduling และ simulation</li>
+                    <li>ใช้เป็น buffer หรือคิวรอคำสั่งที่เข้ามา</li>
+                </ul>
+            </div>
+        </section>
+        <section class="content-section" id="sec-16-2" data-level="2">
+            <h2 class="section-heading"><span class="section-num">16.2</span> <span class="section-title">การ Implement
+                    Queue ด้วยอาร์เรย์</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+const int MAXN = 1000;
+int queueArr[MAXN];
+int frontIndex = 0, rearIndex = -1;
+
+void enqueue(int value) {
+    queueArr[++rearIndex] = value;
+}
+
+int dequeue() {
+    return queueArr[frontIndex++];
+}
+
+bool isQueueEmpty() {
+    return frontIndex &gt; rearIndex;
+}
+
+int main() {
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    cout &lt;&lt; dequeue() &lt;&lt; endl;  // 1
+    cout &lt;&lt; dequeue() &lt;&lt; endl;  // 2
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">Queue ด้วย array (simple version)</p>
+                <div class="callout note"><span class="callout-label">หมายเหตุ</span>
+                    <div class="callout-body">
+                        <p>Version นี้ง่ายแต่ไม่รีไซเคิลพื้นที่ เมื่อ dequeue แล้วตำแหน่งหัวจะเพิ่มขึ้นเรื่อย ๆ จึงมักใช้ circular queue เพื่อใช้งานพื้นที่ array ให้เต็มที่</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section" id="sec-16-3" data-level="2">
+            <h2 class="section-heading"><span class="section-num">16.3</span> <span class="section-title">การ Implement
+                    Queue ด้วย Linked List</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">struct QueueNode {
+    int data;
+    QueueNode* next;
+};
+
+struct Queue {
+    QueueNode *front = nullptr, *rear = nullptr;
+
+    void enqueue(int value) {
+        QueueNode* node = new QueueNode{value, nullptr};
+        if (rear == nullptr) {
+            front = rear = node;
+        } else {
+            rear-&gt;next = node;
+            rear = node;
+        }
+    }
+
+    int dequeue() {
+        int value = front-&gt;data;
+        QueueNode* temp = front;
+        front = front-&gt;next;
+        if (front == nullptr) rear = nullptr;
+        delete temp;
+        return value;
+    }
+};</code></pre>
+                </div>
+                <p class="code-caption">Queue ด้วย linked list</p>
+            </div>
+        </section>
+        <section class="content-section" id="sec-16-4" data-level="2">
+            <h2 class="section-heading"><span class="section-num">16.4</span> <span class="section-title">std::queue ใน
+                    STL</span></h2>
+            <div class="section-body">
+                <div class="code-block" data-lang="cpp">
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;queue&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    queue&lt;int&gt; q;
+    q.push(10);
+    q.push(20);
+    q.push(30);
+
+    cout &lt;&lt; q.front() &lt;&lt; endl;  // 10 (ตัวแรกที่เข้า)
+    q.pop();
+    cout &lt;&lt; q.front() &lt;&lt; endl;  // 20
+
+    return 0;
+}</code></pre>
+                </div>
+                <p class="code-caption">std::queue ใน STL</p>
+                <p>std::queue ใช้ใน BFS บน graph/grid — เป็นหัวใจของการค้นหาแบบกว้าง</p>
+            </div>
+            </div>
+        </section>
+        <footer class="footer">
+            <p>การเขียนโปรแกรมภาษา C++</p>
+            <p class="footer-meta">สำหรับใช้อบรมค่ายโอลิมปิกวิชาการ สอวน.คอมพิวเตอร์​ ค่าย 1</p>
+        </footer>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script>
+
+        (function () {
+            'use strict';
+
+            var sidebar = document.getElementById('sidebar');
+            var sidebarOverlay = document.getElementById('sidebarOverlay');
+            var topbarMenu = document.getElementById('topbarMenu');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (topbarMenu) topbarMenu.addEventListener('click', openSidebar);
+            if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+            });
+
+            var topbarTop = document.getElementById('topbarTop');
+            if (topbarTop) {
+                topbarTop.addEventListener('click', function () {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            // === Chapter expand/collapse ===
+            var chapterToggles = document.querySelectorAll('.toc-chapter-toggle');
+            chapterToggles.forEach(function (toggle) {
+                var sublist = toggle.nextElementSibling;
+                var chapter = toggle.closest('.toc-chapter');
+                var chapterIdx = chapter.getAttribute('data-chapter');
+
+                var stored = localStorage.getItem('ds-toc-ch-' + chapterIdx);
+                var open = stored === null ? chapterIdx === '1' : stored === '1';
+
+                if (open) {
+                    toggle.setAttribute('aria-expanded', 'true');
+                    sublist.classList.add('open');
+                } else {
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+
+                toggle.addEventListener('click', function () {
+                    var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+                    if (isOpen) {
+                        toggle.setAttribute('aria-expanded', 'false');
+                        sublist.classList.remove('open');
+                        localStorage.setItem('ds-toc-ch-' + chapterIdx, '0');
+                    } else {
+                        toggle.setAttribute('aria-expanded', 'true');
+                        sublist.classList.add('open');
+                        localStorage.setItem('ds-toc-ch-' + chapterIdx, '1');
+                    }
+                });
+            });
+
+            // === TOC search ===
+            var searchInput = document.getElementById('tocSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function () {
+                    var q = searchInput.value.trim().toLowerCase();
+                    var items = document.querySelectorAll('.toc-item');
+                    var chapters = document.querySelectorAll('.toc-chapter');
+
+                    if (!q) {
+                        items.forEach(function (it) { it.classList.remove('hidden-by-search'); });
+                        chapters.forEach(function (ch) { ch.classList.remove('hidden-by-search'); });
+                        return;
+                    }
+
+                    items.forEach(function (it) {
+                        var text = it.textContent.toLowerCase();
+                        if (text.indexOf(q) !== -1) {
+                            it.classList.remove('hidden-by-search');
+                            var parentCh = it.closest('.toc-chapter');
+                            if (parentCh) {
+                                parentCh.classList.remove('hidden-by-search');
+                                var toggle = parentCh.querySelector('.toc-chapter-toggle');
+                                var sublist = parentCh.querySelector('.toc-sublist');
+                                if (toggle && sublist) {
+                                    toggle.setAttribute('aria-expanded', 'true');
+                                    sublist.classList.add('open');
+                                }
+                            }
+                        } else {
+                            it.classList.add('hidden-by-search');
+                        }
+                    });
+
+                    chapters.forEach(function (ch) {
+                        var visibleItems = ch.querySelectorAll('.toc-item:not(.hidden-by-search)');
+                        if (visibleItems.length === 0) ch.classList.add('hidden-by-search');
+                    });
+                });
+            }
+
+            // === Active section highlighting ===
+            var sections = document.querySelectorAll('.content-section, .chapter-divider, .cover');
+            var tocLinks = {};
+            document.querySelectorAll('.toc-link').forEach(function (link) {
+                var href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    var slug = href.slice(1);
+                    if (!tocLinks[slug]) tocLinks[slug] = [];
+                    tocLinks[slug].push(link);
+                }
+            });
+
+            var activeSlug = null;
+
+            function setActive(slug) {
+                if (activeSlug === slug) return;
+                activeSlug = slug;
+
+                document.querySelectorAll('.toc-item.active').forEach(function (it) {
+                    it.classList.remove('active');
+                });
+
+                if (tocLinks[slug]) {
+                    tocLinks[slug].forEach(function (link) {
+                        var item = link.closest('.toc-item');
+                        if (item) item.classList.add('active');
+                    });
+
+                    var activeItem = document.querySelector('.toc-item.active');
+                    if (activeItem) {
+                        var chapter = activeItem.closest('.toc-chapter');
+                        if (chapter) {
+                            var toggle = chapter.querySelector('.toc-chapter-toggle');
+                            var sublist = chapter.querySelector('.toc-sublist');
+                            if (toggle && sublist) {
+                                toggle.setAttribute('aria-expanded', 'true');
+                                sublist.classList.add('open');
+                            }
+                        }
+
+                        var sidebarRect = sidebar.getBoundingClientRect();
+                        var itemRect = activeItem.getBoundingClientRect();
+                        if (itemRect.top < sidebarRect.top || itemRect.bottom > sidebarRect.bottom) {
+                            activeItem.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                        }
+                    }
+                }
+            }
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    var visibleEntries = entries.filter(function (e) { return e.isIntersecting; });
+                    if (visibleEntries.length > 0) {
+                        visibleEntries.sort(function (a, b) {
+                            return a.boundingClientRect.top - b.boundingClientRect.top;
+                        });
+                        setActive(visibleEntries[0].target.id);
+                    }
+                }, {
+                    rootMargin: '-80px 0px -70% 0px',
+                    threshold: 0
+                });
+                sections.forEach(function (s) { observer.observe(s); });
+            }
+
+            // === Progress bar ===
+            var progressBar = document.getElementById('progressBar');
+            function updateProgress() {
+                var scrollTop = window.scrollY;
+                var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                var pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+                progressBar.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            updateProgress();
+
+            // === Font size controls ===
+            var fontDecrease = document.getElementById('fontDecrease');
+            var fontReset = document.getElementById('fontReset');
+            var fontIncrease = document.getElementById('fontIncrease');
+            var root = document.documentElement;
+            var minFontSize = 14;
+            var maxFontSize = 22;
+            function saveFontSize(value) {
+                localStorage.setItem('ds-base-font-size', value);
+            }
+            function updateFontSize(value) {
+                root.style.setProperty('--base-font-size', value + 'px');
+            }
+            function loadFontSize() {
+                var stored = localStorage.getItem('ds-base-font-size');
+                if (stored) {
+                    updateFontSize(stored);
+                }
+            }
+            function changeFont(step) {
+                var current = parseInt(getComputedStyle(root).getPropertyValue('--base-font-size'), 10) || 16;
+                var next = Math.min(maxFontSize, Math.max(minFontSize, current + step));
+                updateFontSize(next);
+                saveFontSize(next);
+            }
+            if (fontDecrease) fontDecrease.addEventListener('click', function () { changeFont(-1); });
+            if (fontIncrease) fontIncrease.addEventListener('click', function () { changeFont(1); });
+            if (fontReset) fontReset.addEventListener('click', function () { updateFontSize(16); saveFontSize(16); });
+            loadFontSize();
+
+            // === Prism ===
+            if (window.Prism) Prism.highlightAll();
+
+            // === Smooth scroll ===
+            document.querySelectorAll('.toc-link, .cover-chip, .btn').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    var href = link.getAttribute('href');
+                    if (href && href.startsWith('#') && href.length > 1) {
+                        var target = document.getElementById(href.slice(1));
+                        if (target) {
+                            e.preventDefault();
+                            var rect = target.getBoundingClientRect();
+                            var top = rect.top + window.scrollY - 16;
+                            window.scrollTo({ top: top, behavior: 'smooth' });
+                            if (window.innerWidth <= 768) {
+                                setTimeout(closeSidebar, 100);
+                            }
+                        }
+                    }
+                });
+            });
+
+            // === Keyboard shortcuts ===
+            document.addEventListener('keydown', function (e) {
+                if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                }
+                if (e.key === 'Escape' && document.activeElement === searchInput) {
+                    searchInput.blur();
+                }
+            });
+        })();
+
+    </script>
+</body>
+
+</html>
