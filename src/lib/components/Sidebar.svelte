@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { page } from '$app/state';
 	import { chapters } from '$lib/data/toc';
 	import { activeSlug, fontSize } from '$lib/stores/nav';
-
-	const onAboutPage = $derived(page.url.pathname.endsWith('/about'));
 
 	let { open = false, onclose }: { open?: boolean; onclose?: () => void } = $props();
 
@@ -24,17 +21,13 @@
 		expanded[num] = !expanded[num];
 	}
 
-	// Auto-expand only the chapter that contains the active section, collapse all others
+	// Auto-expand chapter that contains the active section
 	$effect(() => {
-		if (onAboutPage) {
-			expanded = {};
-			return;
-		}
 		const slug = $activeSlug;
 		if (!slug || query.trim()) return;
 		for (const ch of chapters) {
 			if (ch.sections.some((s) => s.slug === slug)) {
-				expanded = { [ch.num]: true };
+				expanded[ch.num] = true;
 				break;
 			}
 		}
@@ -116,22 +109,19 @@
 								<a
 									href="{base}/#{section.slug}"
 									class="toc-link"
-									class:active={!onAboutPage && $activeSlug === section.slug}
+									class:active={$activeSlug === section.slug}
 									onclick={(e) => {
 										e.preventDefault();
-										onclose?.();
 										const el = document.getElementById(section.slug);
-										if (!el) {
-											// Not on the main page — navigate there with hash
-											window.location.href = `${base}/#${section.slug}`;
-											return;
+										if (el) {
+											const topbarH = (document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0);
+											const gap = 16;
+											const y = el.getBoundingClientRect().top + window.scrollY - topbarH - gap;
+											window.scrollTo({ top: y });
+											history.pushState(null, '', `${base}/#${section.slug}`);
 										}
-										const topbarH = (document.querySelector<HTMLElement>('.topbar')?.offsetHeight ?? 0);
-										const gap = 16;
-										const y = el.getBoundingClientRect().top + window.scrollY - topbarH - gap;
-										window.scrollTo({ top: y });
-										history.pushState(null, '', `${base}/#${section.slug}`);
 										activeSlug.set(section.slug);
+										onclose?.();
 									}}
 								>
 									<span class="toc-num">{section.num}</span>
@@ -146,7 +136,7 @@
 	{/if}
 
 	<div class="sidebar-footer">
-		<a href="{base}/about" class="sidebar-about-link" class:active={onAboutPage} onclick={onclose}>เกี่ยวกับเรา</a>
+		<a href="{base}/about" class="sidebar-about-link" onclick={onclose}>เกี่ยวกับเรา</a>
 	</div>
 </nav>
 
@@ -393,11 +383,9 @@
 		transition: all 0.15s;
 	}
 
-	.sidebar-about-link:hover,
-	.sidebar-about-link.active {
+	.sidebar-about-link:hover {
 		color: var(--color-accent-dark);
 		background: var(--color-accent-soft);
-		font-weight: 600;
 	}
 
 	@media (max-width: 768px) {
